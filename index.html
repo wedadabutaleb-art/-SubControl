@@ -4,7 +4,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#071221">
-
 <title>SubControl</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -38,9 +37,7 @@ html,body{
 button,input,select{font:inherit}
 button{cursor:pointer}
 
-body{
-  min-height:100vh;
-}
+body{min-height:100vh}
 
 .app{
   min-height:100vh;
@@ -49,9 +46,9 @@ body{
     linear-gradient(180deg,#06101f,#030814)
 }
 
-/* =========================
-   AUTH
-========================= */
+.hidden{display:none!important}
+
+/* AUTH */
 
 .auth-screen{
   min-height:100vh;
@@ -62,7 +59,7 @@ body{
   background:
     radial-gradient(circle at 80% 10%,#5948d755,transparent 28%),
     radial-gradient(circle at 10% 80%,#172c5a55,transparent 30%),
-    #030814;
+    #030814
 }
 
 .auth-card{
@@ -82,9 +79,7 @@ body{
   margin-bottom:6px
 }
 
-.auth-logo span{
-  color:var(--brand2)
-}
+.auth-logo span{color:var(--brand2)}
 
 .auth-sub{
   text-align:center;
@@ -118,9 +113,7 @@ body{
   background:#7567ff
 }
 
-.auth-field{
-  margin-bottom:13px
-}
+.auth-field{margin-bottom:13px}
 
 .auth-field label{
   display:block;
@@ -139,9 +132,7 @@ body{
   border-radius:13px
 }
 
-.auth-field input:focus{
-  border-color:#7567ff
-}
+.auth-field input:focus{border-color:#7567ff}
 
 .auth-main-btn{
   width:100%;
@@ -174,11 +165,7 @@ body{
 .auth-msg.error{color:#ff8f99}
 .auth-msg.ok{color:#72e7a7}
 
-.hidden{display:none!important}
-
-/* =========================
-   APP
-========================= */
+/* APP */
 
 .sidebar{display:none}
 
@@ -225,6 +212,15 @@ body{
 .iconbtn{
   width:40px;
   padding:0
+}
+
+.user-email{
+  max-width:150px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  color:#aebfff;
+  font-size:11px
 }
 
 .content{
@@ -296,11 +292,6 @@ body{
   border-radius:18px;
   padding:15px;
   margin-bottom:10px
-}
-
-.card h3{
-  margin:0 0 12px;
-  font-size:15px
 }
 
 .quick{
@@ -488,10 +479,7 @@ body{
 }
 
 .switch.on{background:var(--brand)}
-
-.switch.on i{
-  inset-inline-start:24px
-}
+.switch.on i{inset-inline-start:24px}
 
 .detect-actions{
   display:grid;
@@ -683,15 +671,6 @@ body{
   transform:translateX(-50%) translateY(0)
 }
 
-.user-email{
-  max-width:150px;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-  color:#aebfff;
-  font-size:11px
-}
-
 @media(min-width:900px){
 
   .app{padding-inline-start:var(--sidebar)}
@@ -730,8 +709,6 @@ body{
     font-weight:800
   }
 
-  .side-nav button strong{font-size:18px}
-
   .side-nav button.on{
     background:#161f3a;
     border-color:#2c3f65;
@@ -763,107 +740,78 @@ body{
   .sheet{border-radius:22px}
   .toast{bottom:28px}
 }
-
 </style>
 </head>
 
 <body>
 
-<!-- =========================
-     LOGIN
-========================= -->
-
 <section id="authScreen" class="auth-screen">
 
-  <div class="auth-card">
+<div class="auth-card">
 
-    <div class="auth-logo">
-      SubControl <span>⚡</span>
+  <div class="auth-logo">
+    ⚡ SubControl
+  </div>
+
+  <div class="auth-sub">
+    تحكم في اشتراكاتك ومدفوعاتك من مكان واحد
+  </div>
+
+  <div class="auth-tabs">
+    <button id="loginTab" class="on" onclick="showLogin()">تسجيل الدخول</button>
+    <button id="signupTab" onclick="showSignup()">إنشاء حساب</button>
+  </div>
+
+  <div id="loginForm">
+
+    <div class="auth-field">
+      <label>البريد الإلكتروني</label>
+      <input id="loginEmail" type="email" autocomplete="email" placeholder="you@example.com">
     </div>
 
-    <div class="auth-sub" id="authSubtitle">
-      تحكم في اشتراكاتك ومدفوعاتك من مكان واحد
+    <div class="auth-field">
+      <label>كلمة المرور</label>
+      <input id="loginPassword" type="password" autocomplete="current-password" placeholder="••••••••">
     </div>
 
-    <div class="auth-tabs">
-      <button id="loginTab" class="on" onclick="showLogin()">تسجيل الدخول</button>
-      <button id="signupTab" onclick="showSignup()">إنشاء حساب</button>
-    </div>
+    <button class="auth-main-btn" onclick="loginUser()">
+      تسجيل الدخول
+    </button>
 
-    <div id="loginForm">
-
-      <div class="auth-field">
-        <label>البريد الإلكتروني</label>
-        <input
-          id="loginEmail"
-          type="email"
-          autocomplete="email"
-          placeholder="you@example.com">
-      </div>
-
-      <div class="auth-field">
-        <label>كلمة المرور</label>
-        <input
-          id="loginPassword"
-          type="password"
-          autocomplete="current-password"
-          placeholder="••••••••">
-      </div>
-
-      <button class="auth-main-btn" onclick="loginUser()">
-        تسجيل الدخول
-      </button>
-
-      <button class="auth-link" onclick="forgotPassword()">
-        نسيت كلمة المرور؟
-      </button>
-
-    </div>
-
-    <div id="signupForm" class="hidden">
-
-      <div class="auth-field">
-        <label>الاسم</label>
-        <input
-          id="signupName"
-          type="text"
-          autocomplete="name"
-          placeholder="الاسم">
-      </div>
-
-      <div class="auth-field">
-        <label>البريد الإلكتروني</label>
-        <input
-          id="signupEmail"
-          type="email"
-          autocomplete="email"
-          placeholder="you@example.com">
-      </div>
-
-      <div class="auth-field">
-        <label>كلمة المرور</label>
-        <input
-          id="signupPassword"
-          type="password"
-          autocomplete="new-password"
-          placeholder="8 أحرف أو أكثر">
-      </div>
-
-      <button class="auth-main-btn" onclick="signupUser()">
-        إنشاء الحساب
-      </button>
-
-    </div>
-
-    <div id="authMessage" class="auth-msg"></div>
+    <button class="auth-link" onclick="forgotPassword()">
+      نسيت كلمة المرور؟
+    </button>
 
   </div>
 
+  <div id="signupForm" class="hidden">
+
+    <div class="auth-field">
+      <label>الاسم</label>
+      <input id="signupName" type="text" placeholder="الاسم">
+    </div>
+
+    <div class="auth-field">
+      <label>البريد الإلكتروني</label>
+      <input id="signupEmail" type="email" placeholder="you@example.com">
+    </div>
+
+    <div class="auth-field">
+      <label>كلمة المرور</label>
+      <input id="signupPassword" type="password" placeholder="8 أحرف أو أكثر">
+    </div>
+
+    <button class="auth-main-btn" onclick="signupUser()">
+      إنشاء الحساب
+    </button>
+
+  </div>
+
+  <div id="authMessage" class="auth-msg"></div>
+
+</div>
 </section>
 
-<!-- =========================
-     MAIN APP
-========================= -->
 
 <div id="mainApp" class="app hidden">
 
@@ -881,6 +829,7 @@ body{
 
 </aside>
 
+
 <header class="topbar">
 
   <div class="brand">
@@ -891,16 +840,11 @@ body{
 
     <span id="headerEmail" class="user-email"></span>
 
-    <button
-      class="langbtn"
-      id="langBtn"
-      onclick="toggleLang()">
+    <button class="langbtn" id="langBtn" onclick="toggleLang()">
       EN
     </button>
 
-    <button
-      class="iconbtn"
-      onclick="openAdd()">
+    <button class="iconbtn" onclick="openAdd()">
       ＋
     </button>
 
@@ -910,8 +854,6 @@ body{
 
 
 <main class="content">
-
-<!-- HOME -->
 
 <section class="screen on" id="home">
 
@@ -925,6 +867,7 @@ body{
   </div>
 </div>
 
+
 <div class="dashboard-grid">
 
 <div>
@@ -936,9 +879,7 @@ body{
     data-en="Monthly commitments">
   </small>
 
-  <div class="hero-amount" id="heroTotal">
-    0
-  </div>
+  <div class="hero-amount" id="heroTotal">0</div>
 
   <div class="pills">
     <span class="pill" id="countPill"></span>
@@ -984,11 +925,8 @@ body{
   data-en="Upcoming renewals">
 </h3>
 
-<button
-  class="linkbtn"
-  onclick="go('subs')"
-  data-ar="عرض الكل"
-  data-en="View all">
+<button class="linkbtn" onclick="go('subs')">
+عرض الكل
 </button>
 
 </div>
@@ -1005,32 +943,32 @@ body{
 <div class="detect-top">
 
 <div>
-  <div
-    class="name"
-    data-ar="الاكتشاف التلقائي"
-    data-en="Auto detection">
-  </div>
-
-  <div class="meta" id="detectText"></div>
-</div>
 
 <div
-  class="switch on"
-  id="autoSwitch"
-  onclick="toggleAuto()">
-  <i></i>
+  class="name"
+  data-ar="الاكتشاف التلقائي"
+  data-en="Auto detection">
+</div>
+
+<div class="meta" id="detectText"></div>
+
+</div>
+
+<div class="switch on" id="autoSwitch" onclick="toggleAuto()">
+<i></i>
 </div>
 
 </div>
+
 
 <div class="detect-actions">
 
-<button onclick="connectMail('gmail')">
-  Gmail
+<button onclick="connectMail('Gmail')">
+Gmail
 </button>
 
-<button onclick="connectMail('outlook')">
-  Outlook
+<button onclick="connectMail('Outlook')">
+Outlook
 </button>
 
 </div>
@@ -1039,22 +977,11 @@ body{
 
 
 <div class="section-head">
-
-<h3
-  data-ar="SubControl AI"
-  data-en="SubControl AI">
-</h3>
-
+<h3>✨ SubControl AI</h3>
 </div>
 
 <div class="card">
-
-<div
-  class="meta"
-  id="aiText"
-  style="font-size:12px;line-height:1.8">
-</div>
-
+<div class="meta" id="aiText" style="font-size:12px;line-height:1.8"></div>
 </div>
 
 </div>
@@ -1064,30 +991,20 @@ body{
 </section>
 
 
-<!-- SUBSCRIPTIONS -->
-
 <section class="screen" id="subs">
 
 <div class="page-title">
 
 <div>
-
-<h1
-  data-ar="الاشتراكات"
-  data-en="Subscriptions">
-</h1>
-
+<h1 data-ar="الاشتراكات" data-en="Subscriptions"></h1>
 <p
   data-ar="إضافة وتعديل وإيقاف وإلغاء الاشتراكات"
   data-en="Add, edit, pause and cancel subscriptions">
 </p>
-
 </div>
 
-<button
-  class="primary"
-  onclick="openAdd()">
-  + <span data-ar="إضافة" data-en="Add"></span>
+<button class="primary" onclick="openAdd()">
++ <span data-ar="إضافة" data-en="Add"></span>
 </button>
 
 </div>
@@ -1103,35 +1020,24 @@ body{
 </section>
 
 
-<!-- PAYMENTS -->
-
 <section class="screen" id="pay">
 
 <div class="page-title">
 
 <div>
-
-<h1
-  data-ar="مركز السداد"
-  data-en="Payment Center">
-</h1>
-
+<h1 data-ar="مركز السداد" data-en="Payment Center"></h1>
 <p
   data-ar="حدد الاشتراكات التي تريد سدادها"
-  data-en="Select the subscriptions you want to pay">
+  data-en="Select subscriptions to pay">
 </p>
-
 </div>
 
 </div>
-
 
 <div class="card">
 
-<div
-  class="meta"
-  data-ar="اختر الاشتراكات التي تريد جمعها في عملية واحدة"
-  data-en="Choose subscriptions to combine into one payment flow">
+<div class="meta">
+اختر الاشتراكات التي تريد جمعها في عملية سداد واحدة
 </div>
 
 <div id="payList"></div>
@@ -1139,17 +1045,8 @@ body{
 <div class="total">
 
 <div>
-
-<div
-  class="meta"
-  data-ar="إجمالي المحدد"
-  data-en="Selected total">
-</div>
-
-<strong id="payTotal">
-0
-</strong>
-
+<div class="meta">إجمالي المحدد</div>
+<strong id="payTotal">0</strong>
 </div>
 
 <span class="meta" id="payCount"></span>
@@ -1159,125 +1056,89 @@ body{
 
 <div class="methods">
 
-<button
-  class="method"
-  onclick="simulate('Apple Pay')">
-   Pay
+<button class="method" onclick="simulate('Apple Pay')">
+ Pay
 </button>
 
-<button
-  class="method dark"
-  onclick="simulate('Visa / Mastercard')">
-  Visa / Mastercard
+<button class="method dark" onclick="simulate('Visa / Mastercard')">
+Visa / Mastercard
 </button>
 
-<button
-  class="method dark"
-  onclick="simulate('Mada')">
-  Mada
+<button class="method dark" onclick="simulate('Mada')">
+Mada
 </button>
 
-<button
-  class="method dark"
-  onclick="simulate('Bank Transfer')">
-  Bank Transfer
+<button class="method dark" onclick="simulate('Bank Transfer')">
+Bank Transfer
 </button>
 
 </div>
 
 <div class="notice">
-السداد الحقيقي سنربطه لاحقًا بمزود دفع مرخص. لا يتم تخزين بيانات البطاقة داخل SubControl.
+السداد الحقيقي سيتم ربطه لاحقًا بمزود دفع مرخص.
 </div>
 
 </div>
 
 </section>
 
-
-<!-- ANALYTICS -->
 
 <section class="screen" id="analytics">
 
 <div class="page-title">
 
 <div>
-
-<h1
-  data-ar="التحليلات"
-  data-en="Analytics">
-</h1>
-
+<h1 data-ar="التحليلات" data-en="Analytics"></h1>
 <p
   data-ar="ملخص الإنفاق وفرص التوفير"
   data-en="Spending summary and savings opportunities">
 </p>
-
 </div>
 
 </div>
-
 
 <div class="metricgrid">
 
 <div class="metric">
-  <small data-ar="شهري" data-en="Monthly"></small>
-  <strong id="m1">0</strong>
+<small data-ar="شهري" data-en="Monthly"></small>
+<strong id="m1">0</strong>
 </div>
 
 <div class="metric">
-  <small data-ar="سنوي" data-en="Annual"></small>
-  <strong id="m2">0</strong>
+<small data-ar="سنوي" data-en="Annual"></small>
+<strong id="m2">0</strong>
 </div>
 
 <div class="metric">
-  <small data-ar="نشط" data-en="Active"></small>
-  <strong id="m3">0</strong>
+<small data-ar="نشط" data-en="Active"></small>
+<strong id="m3">0</strong>
 </div>
 
 <div class="metric">
-  <small data-ar="غير نشط" data-en="Inactive"></small>
-  <strong id="m4">0</strong>
+<small data-ar="غير نشط" data-en="Inactive"></small>
+<strong id="m4">0</strong>
 </div>
 
 </div>
-
 
 <div class="card" style="margin-top:12px">
 
-<h3
-  data-ar="تحليل التوفير"
-  data-en="Savings analysis">
-</h3>
+<h3 data-ar="تحليل التوفير" data-en="Savings analysis"></h3>
 
-<div
-  class="meta"
-  id="savingText"
-  style="font-size:12px;line-height:1.7">
-</div>
+<div class="meta" id="savingText" style="font-size:12px;line-height:1.7"></div>
 
 </div>
 
 </section>
 
 
-<!-- PROFILE -->
-
 <section class="screen" id="profile">
 
 <div class="page-title">
 
 <div>
-
-<h1
-  data-ar="الحساب"
-  data-en="Account">
-</h1>
-
-<p
-  data-ar="الحساب والأمان"
-  data-en="Account and security">
-</p>
-
+<h1 data-ar="الحساب" data-en="Account"></h1>
+<p data-ar="الحساب والأمان" data-en="Account and security"></p>
 </div>
 
 </div>
@@ -1287,29 +1148,24 @@ body{
 
 <div class="card">
 
-<h3
-  data-ar="الحساب"
-  data-en="Account">
-</h3>
+<h3 data-ar="الحساب" data-en="Account"></h3>
 
 <div class="profile-row">
-  <span data-ar="البريد الإلكتروني" data-en="Email"></span>
-  <b id="profileEmail">—</b>
+<span data-ar="البريد الإلكتروني" data-en="Email"></span>
+<b id="profileEmail">—</b>
 </div>
 
 <div class="profile-row">
-  <span data-ar="حالة الحساب" data-en="Account status"></span>
-  <b style="color:#68e6a0">
-    <span data-ar="مسجل الدخول" data-en="Signed in"></span>
-  </b>
+<span data-ar="حالة الحساب" data-en="Status"></span>
+<b style="color:#68e6a0">
+<span data-ar="مسجل الدخول" data-en="Signed in"></span>
+</b>
 </div>
 
 <div class="row-actions">
 
-<button
-  class="danger"
-  onclick="logoutUser()">
-  <span data-ar="تسجيل الخروج" data-en="Sign out"></span>
+<button class="danger" onclick="logoutUser()">
+تسجيل الخروج
 </button>
 
 </div>
@@ -1319,16 +1175,10 @@ body{
 
 <div class="card">
 
-<h3
-  data-ar="الأمان"
-  data-en="Security">
-</h3>
+<h3 data-ar="الأمان" data-en="Security"></h3>
 
-<div
-  class="meta"
-  data-ar="تسجيل الحساب يتم الآن عبر Supabase Auth. لا يتم وضع Secret Key داخل التطبيق."
-  data-en="Authentication now uses Supabase Auth. No secret key is stored in the frontend."
-  style="font-size:12px;line-height:1.8">
+<div class="meta" style="font-size:12px;line-height:1.8">
+تسجيل الدخول والبيانات مرتبطة الآن بحساب Supabase، ويعرض كل مستخدم بياناته فقط.
 </div>
 
 </div>
@@ -1339,23 +1189,16 @@ body{
 
 </main>
 
-
 <nav class="bottomnav" id="bottomNav"></nav>
 
 </div>
 
 
-<!-- =========================
-     ADD / EDIT MODAL
-========================= -->
-
 <div class="modal" id="subModal">
 
 <div class="sheet">
 
-<h2 id="modalTitle">
-إضافة اشتراك
-</h2>
+<h2 id="modalTitle">إضافة اشتراك</h2>
 
 <input type="hidden" id="editId">
 
@@ -1368,11 +1211,7 @@ body{
 
 <div class="field">
 <label>السعر</label>
-<input
-  id="fPrice"
-  type="number"
-  step="0.01"
-  min="0">
+<input id="fPrice" type="number" step="0.01" min="0">
 </div>
 
 </div>
@@ -1393,9 +1232,7 @@ body{
 
 <div class="field">
 <label>تاريخ التجديد</label>
-<input
-  id="fDate"
-  type="date">
+<input id="fDate" type="date">
 </div>
 
 </div>
@@ -1425,9 +1262,7 @@ body{
 
 <div class="field">
 <label>رابط إدارة الاشتراك</label>
-<input
-  id="fUrl"
-  placeholder="https://...">
+<input id="fUrl" placeholder="https://...">
 </div>
 
 
@@ -1463,24 +1298,18 @@ body{
 
 <div class="field">
 <label>البريد المرتبط بالاشتراك</label>
-<input
-  id="fEmail"
-  type="email">
+<input id="fEmail" type="email">
 </div>
 
 
 <div class="sheet-actions">
 
-<button
-  class="primary"
-  onclick="saveSub()">
-  حفظ
+<button class="primary" onclick="saveSub()">
+حفظ
 </button>
 
-<button
-  class="ghost"
-  onclick="closeModal()">
-  إلغاء
+<button class="ghost" onclick="closeModal()">
+إلغاء
 </button>
 
 </div>
@@ -1495,15 +1324,14 @@ body{
 
 <script>
 
-/* ======================================================
-   SUPABASE
-====================================================== */
+/* SUPABASE */
 
 const SUPABASE_URL =
 'https://xptsdmsrxdczbgcaybxb.supabase.co';
 
 const SUPABASE_PUBLISHABLE_KEY =
 'sb_publishable_nRufSl9ODK6bT-qhiBm1PQ_ELckjnHf';
+
 
 const supabaseClient =
 window.supabase.createClient(
@@ -1519,9 +1347,7 @@ window.supabase.createClient(
 );
 
 
-/* ======================================================
-   DOM
-====================================================== */
+/* DOM */
 
 const $ = id => document.getElementById(id);
 
@@ -1529,7 +1355,6 @@ const authScreen = $('authScreen');
 const mainApp = $('mainApp');
 
 const authMessage = $('authMessage');
-
 const loginForm = $('loginForm');
 const signupForm = $('signupForm');
 
@@ -1540,20 +1365,19 @@ const sideNav = $('sideNav');
 const bottomNav = $('bottomNav');
 
 const subModal = $('subModal');
-
 const search = $('search');
 
 let currentUser = null;
 
 
-/* ======================================================
-   AUTH UI
-====================================================== */
+/* AUTH */
 
 function showAuthMessage(message,type=''){
+
   authMessage.textContent = message;
   authMessage.className = 'auth-msg ' + type;
 }
+
 
 function showLogin(){
 
@@ -1565,6 +1389,7 @@ function showLogin(){
 
   showAuthMessage('');
 }
+
 
 function showSignup(){
 
@@ -1589,6 +1414,7 @@ async function signupUser(){
   const password =
     $('signupPassword').value;
 
+
   if(!email || !password){
 
     showAuthMessage(
@@ -1598,6 +1424,7 @@ async function signupUser(){
 
     return;
   }
+
 
   if(password.length < 8){
 
@@ -1609,9 +1436,9 @@ async function signupUser(){
     return;
   }
 
-  showAuthMessage(
-    'جاري إنشاء الحساب...'
-  );
+
+  showAuthMessage('جاري إنشاء الحساب...');
+
 
   const {
     data,
@@ -1625,7 +1452,10 @@ async function signupUser(){
     options:{
       data:{
         full_name:name
-      }
+      },
+
+      emailRedirectTo:
+        'https://wedadabutaleb-art.github.io/-SubControl/'
     }
 
   });
@@ -1644,10 +1474,10 @@ async function signupUser(){
 
   if(data.session){
 
-    showAuthMessage(
-      'تم إنشاء الحساب بنجاح.',
-      'ok'
-    );
+    currentUser =
+      data.user;
+
+    await showApp();
 
   }else{
 
@@ -1655,9 +1485,7 @@ async function signupUser(){
       'تم إنشاء الحساب. افتحي رسالة التأكيد في بريدك الإلكتروني ثم سجلي الدخول.',
       'ok'
     );
-
   }
-
 }
 
 
@@ -1668,6 +1496,7 @@ async function loginUser(){
 
   const password =
     $('loginPassword').value;
+
 
   if(!email || !password){
 
@@ -1680,9 +1509,7 @@ async function loginUser(){
   }
 
 
-  showAuthMessage(
-    'جاري تسجيل الدخول...'
-  );
+  showAuthMessage('جاري تسجيل الدخول...');
 
 
   const {
@@ -1706,10 +1533,11 @@ async function loginUser(){
   }
 
 
-  currentUser = data.user;
+  currentUser =
+    data.user;
 
-  showApp();
 
+  await showApp();
 }
 
 
@@ -1719,13 +1547,13 @@ async function logoutUser(){
 
   currentUser = null;
 
+  subs = [];
+  selected.clear();
+
   mainApp.classList.add('hidden');
   authScreen.classList.remove('hidden');
 
   showLogin();
-
-  toast('تم تسجيل الخروج');
-
 }
 
 
@@ -1733,6 +1561,7 @@ async function forgotPassword(){
 
   const email =
     $('loginEmail').value.trim();
+
 
   if(!email){
 
@@ -1745,17 +1574,14 @@ async function forgotPassword(){
   }
 
 
-  const redirectTo =
-  'https://wedadabutaleb-art.github.io/-SubControl/';
-
-
   const {
     error
   } =
   await supabaseClient.auth.resetPasswordForEmail(
     email,
     {
-      redirectTo
+      redirectTo:
+        'https://wedadabutaleb-art.github.io/-SubControl/'
     }
   );
 
@@ -1775,16 +1601,18 @@ async function forgotPassword(){
     'تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك.',
     'ok'
   );
-
 }
 
 
-function showApp(){
+async function showApp(){
 
-  if(!currentUser) return;
+  if(!currentUser)
+    return;
+
 
   authScreen.classList.add('hidden');
   mainApp.classList.remove('hidden');
+
 
   $('headerEmail').textContent =
     currentUser.email || '';
@@ -1792,14 +1620,12 @@ function showApp(){
   $('profileEmail').textContent =
     currentUser.email || '—';
 
-  render();
 
+  await loadSubscriptionsFromSupabase();
+
+  render();
 }
 
-
-/* ======================================================
-   AUTH SESSION
-====================================================== */
 
 async function initialiseAuth(){
 
@@ -1813,47 +1639,42 @@ async function initialiseAuth(){
 
   if(session?.user){
 
-    currentUser = session.user;
+    currentUser =
+      session.user;
 
-    showApp();
+    await showApp();
 
   }else{
 
     authScreen.classList.remove('hidden');
     mainApp.classList.add('hidden');
-
   }
-
 }
 
 
 supabaseClient.auth.onAuthStateChange(
-  (event,session)=>{
+  async (event,session)=>{
 
     if(session?.user){
 
-      currentUser = session.user;
+      currentUser =
+        session.user;
 
-      showApp();
+      await showApp();
 
-    }else if(
-      event === 'SIGNED_OUT'
-    ){
+    }else if(event === 'SIGNED_OUT'){
 
       currentUser = null;
+      subs = [];
 
       mainApp.classList.add('hidden');
       authScreen.classList.remove('hidden');
-
     }
-
   }
 );
 
 
-/* ======================================================
-   LANGUAGE
-====================================================== */
+/* LANGUAGE */
 
 let lang =
 localStorage.getItem(
@@ -1879,18 +1700,17 @@ function applyLang(){
 
 
   document
-  .querySelectorAll('[data-ar]')
-  .forEach(el=>{
+    .querySelectorAll('[data-ar]')
+    .forEach(el=>{
 
-    el.textContent =
-      lang === 'ar'
-      ? el.dataset.ar
-      : el.dataset.en;
+      el.textContent =
+        lang === 'ar'
+        ? el.dataset.ar
+        : el.dataset.en;
+    });
 
-  });
 
-
-  $('search').placeholder =
+  search.placeholder =
     lang === 'ar'
     ? 'ابحث عن اشتراك...'
     : 'Search subscriptions...';
@@ -1903,8 +1723,9 @@ function applyLang(){
 
 
   buildNav();
-  render();
 
+  if(currentUser)
+    render();
 }
 
 
@@ -1916,13 +1737,10 @@ function toggleLang(){
     : 'ar';
 
   applyLang();
-
 }
 
 
-/* ======================================================
-   NAVIGATION
-====================================================== */
+/* NAV */
 
 const navItems = [
 
@@ -1938,35 +1756,38 @@ const navItems = [
 
 ];
 
+
 let current = 'home';
 
 
 function buildNav(){
 
   const html =
-  navItems
-  .map(
-    ([id,icon,ar,en])=>
-    `
-    <button
-      class="${current===id?'on':''}"
-      onclick="go('${id}')">
+    navItems
+      .map(
+        ([id,icon,ar,en])=>
+        `
+        <button
+          class="${current===id?'on':''}"
+          onclick="go('${id}')">
 
-      <strong>${icon}</strong>
+          <strong>${icon}</strong>
 
-      <span>
-      ${lang==='ar'?ar:en}
-      </span>
+          <span>
+            ${lang==='ar'?ar:en}
+          </span>
 
-    </button>
-    `
-  )
-  .join('');
+        </button>
+        `
+      )
+      .join('');
 
 
-  bottomNav.innerHTML = html;
-  sideNav.innerHTML = html;
+  bottomNav.innerHTML =
+    html;
 
+  sideNav.innerHTML =
+    html;
 }
 
 
@@ -1975,168 +1796,312 @@ function go(id){
   current = id;
 
   document
-  .querySelectorAll('.screen')
-  .forEach(el=>
-    el.classList.remove('on')
-  );
+    .querySelectorAll('.screen')
+    .forEach(
+      el=>
+        el.classList.remove('on')
+    );
 
 
   $(id).classList.add('on');
 
-
   buildNav();
-
 
   window.scrollTo({
     top:0,
     behavior:'smooth'
   });
-
 }
 
 
-/* ======================================================
-   SUBSCRIPTIONS
-   مؤقتًا Local Storage لكل مستخدم
-====================================================== */
-
-function userStorageKey(){
-
-  if(!currentUser)
-    return 'subcontrol_guest';
-
-  return (
-    'subcontrol_subscriptions_' +
-    currentUser.id
-  );
-
-}
-
-
-function plusDays(n){
-
-  const d = new Date();
-
-  d.setDate(
-    d.getDate()+n
-  );
-
-  return d
-  .toISOString()
-  .slice(0,10);
-
-}
-
-
-const seed = [
-
-{
- id:1,
- name:'ChatGPT Plus',
- icon:'🤖',
- price:75,
- cycle:'monthly',
- date:plusDays(8),
- status:'active',
- payment:'Visa •••• 1248',
- url:'https://chatgpt.com',
- providerKey:'chatgpt'
-},
-
-{
- id:2,
- name:'Netflix',
- icon:'🎬',
- price:69,
- cycle:'monthly',
- date:plusDays(3),
- status:'active',
- payment:'Mada •••• 8841',
- url:'https://www.netflix.com/account',
- providerKey:'netflix'
-},
-
-{
- id:3,
- name:'iCloud+',
- icon:'☁️',
- price:14.99,
- cycle:'monthly',
- date:plusDays(13),
- status:'active',
- payment:'Apple Pay',
- url:'https://apps.apple.com/account/subscriptions',
- providerKey:'apple'
-},
-
-{
- id:4,
- name:'Canva Pro',
- icon:'🎨',
- price:450,
- cycle:'yearly',
- date:plusDays(25),
- status:'active',
- payment:'Visa •••• 1248',
- url:'https://www.canva.com/settings/billing-and-plans',
- providerKey:'canva'
-}
-
-];
-
+/* SUBSCRIPTIONS */
 
 let subs = [];
 let selected = new Set();
 let autoDetect = true;
 
 
-function loadLocalSubscriptions(){
+function plusDays(n){
+
+  const d =
+    new Date();
+
+  d.setDate(
+    d.getDate()+n
+  );
+
+  return d
+    .toISOString()
+    .slice(0,10);
+}
+
+
+function normalizeProvider(value){
+
+  const v =
+    String(value || '')
+      .trim()
+      .toLowerCase();
+
+
+  if(v.includes('chatgpt') || v.includes('openai'))
+    return 'chatgpt';
+
+  if(v.includes('netflix'))
+    return 'netflix';
+
+  if(v.includes('spotify'))
+    return 'spotify';
+
+  if(v.includes('adobe'))
+    return 'adobe';
+
+  if(v.includes('canva'))
+    return 'canva';
+
+  if(v.includes('microsoft'))
+    return 'microsoft365';
+
+  if(v.includes('google'))
+    return 'googleone';
+
+  if(v.includes('apple') || v.includes('icloud'))
+    return 'apple';
+
+  return v;
+}
+
+
+function providerDisplayName(key,name){
+
+  const map = {
+    chatgpt:'ChatGPT',
+    netflix:'Netflix',
+    spotify:'Spotify',
+    adobe:'Adobe',
+    canva:'Canva',
+    microsoft365:'Microsoft 365',
+    googleone:'Google One',
+    apple:'Apple'
+  };
+
+  return map[key] || name;
+}
+
+
+function getProviderIcon(provider){
+
+  const key =
+    normalizeProvider(provider);
+
+  const icons = {
+    chatgpt:'🤖',
+    netflix:'🎬',
+    spotify:'🎵',
+    adobe:'🅰️',
+    canva:'🎨',
+    microsoft365:'🪟',
+    googleone:'☁️',
+    apple:'☁️'
+  };
+
+  return icons[key] || '⭐';
+}
+
+
+function getProviderUrl(provider){
+
+  const key =
+    normalizeProvider(provider);
+
+  const urls = {
+
+    chatgpt:
+      'https://chatgpt.com/',
+
+    netflix:
+      'https://www.netflix.com/account',
+
+    adobe:
+      'https://account.adobe.com/plans',
+
+    canva:
+      'https://www.canva.com/settings/billing-and-plans',
+
+    spotify:
+      'https://www.spotify.com/account/subscription/',
+
+    microsoft365:
+      'https://account.microsoft.com/services/',
+
+    googleone:
+      'https://one.google.com/settings',
+
+    apple:
+      'https://apps.apple.com/account/subscriptions'
+  };
+
+  return urls[key] || '';
+}
+
+
+function parseNotes(value){
+
+  if(!value)
+    return {};
+
 
   try{
 
-    const stored =
-      localStorage.getItem(
-        userStorageKey()
-      );
+    const parsed =
+      JSON.parse(value);
 
-    subs =
-      stored
-      ? JSON.parse(stored)
-      : JSON.parse(
-          JSON.stringify(seed)
-        );
+    if(
+      parsed &&
+      typeof parsed === 'object'
+    )
+      return parsed;
 
-  }catch{
+  }catch(e){}
 
-    subs =
-      JSON.parse(
-        JSON.stringify(seed)
-      );
+  return {};
+}
 
+
+async function loadSubscriptionsFromSupabase(){
+
+  if(!currentUser){
+
+    subs = [];
+    return;
   }
 
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+    .from('subscriptions')
+    .select('*')
+    .eq(
+      'user_id',
+      currentUser.id
+    )
+    .order(
+      'created_at',
+      {
+        ascending:true
+      }
+    );
+
+
+  if(error){
+
+    console.error(
+      'LOAD SUBSCRIPTIONS ERROR:',
+      error
+    );
+
+    subs = [];
+
+    toast(
+      lang==='ar'
+      ? 'تعذر تحميل الاشتراكات'
+      : 'Could not load subscriptions'
+    );
+
+    return;
+  }
+
+
+  subs =
+    (data || [])
+      .map(row=>{
+
+        const extra =
+          parseNotes(
+            row.notes
+          );
+
+
+        return {
+
+          id:
+            row.id,
+
+          name:
+            row.plan_name ||
+            row.provider_name ||
+            'Subscription',
+
+          icon:
+            getProviderIcon(
+              row.provider_name
+            ),
+
+          price:
+            Number(
+              row.amount || 0
+            ),
+
+          cycle:
+            row.billing_cycle === 'yearly'
+            ? 'yearly'
+            : 'monthly',
+
+          date:
+            row.next_renewal_date ||
+            plusDays(30),
+
+          status:
+            row.status ||
+            'active',
+
+          payment:
+            extra.payment || '',
+
+          url:
+            extra.url ||
+            getProviderUrl(
+              row.provider_name
+            ),
+
+          providerKey:
+            normalizeProvider(
+              row.provider_name
+            ),
+
+          externalSubscriptionId:
+            row.provider_subscription_ref || '',
+
+          userEmail:
+            extra.userEmail ||
+            currentUser.email ||
+            ''
+
+        };
+      });
+
+
+  selected =
+    new Set(
+      [...selected]
+        .filter(
+          id=>
+            subs.some(
+              s=>s.id===id
+            )
+        )
+    );
 }
 
 
-function persist(){
-
-  localStorage.setItem(
-    userStorageKey(),
-    JSON.stringify(subs)
-  );
-
-}
-
-
-/* ======================================================
-   UTILS
-====================================================== */
+/* UTILS */
 
 function monthly(x){
 
-  if(
-    x.status === 'cancelled'
-  )
+  if(x.status === 'cancelled')
     return 0;
 
   return (
@@ -2144,7 +2109,6 @@ function monthly(x){
     ? Number(x.price)
     : Number(x.price)/12
   );
-
 }
 
 
@@ -2152,6 +2116,7 @@ function money(value){
 
   const v =
     Number(value)||0;
+
 
   if(lang === 'ar'){
 
@@ -2165,7 +2130,6 @@ function money(value){
       ) +
       ' ر.س'
     );
-
   }
 
 
@@ -2179,11 +2143,14 @@ function money(value){
       }
     )
   );
-
 }
 
 
 function daysLeft(date){
+
+  if(!date)
+    return 999;
+
 
   const today =
     new Date();
@@ -2203,30 +2170,26 @@ function daysLeft(date){
     (target-today)/
     86400000
   );
-
 }
 
 
 function esc(value){
 
   return String(value)
-  .replace(
-    /[&<>"']/g,
-    c=>({
-      '&':'&amp;',
-      '<':'&lt;',
-      '>':'&gt;',
-      '"':'&quot;',
-      "'":'&#039;'
-    }[c])
-  );
-
+    .replace(
+      /[&<>"']/g,
+      c=>({
+        '&':'&amp;',
+        '<':'&lt;',
+        '>':'&gt;',
+        '"':'&quot;',
+        "'":'&#039;'
+      }[c])
+    );
 }
 
 
-/* ======================================================
-   RENDER
-====================================================== */
+/* RENDER */
 
 function statusText(status){
 
@@ -2246,12 +2209,12 @@ function statusText(status){
     action_required:'Action required'
   };
 
+
   return (
     lang === 'ar'
     ? ar[status]
     : en[status]
   ) || status;
-
 }
 
 
@@ -2291,7 +2254,6 @@ function card(x,full=false){
     else
       renewalText =
         `Renews in ${d} days`;
-
   }
 
 
@@ -2301,31 +2263,35 @@ function card(x,full=false){
     <div class="sub">
 
       <div class="ico">
-      ${x.icon||'⭐'}
+        ${x.icon || '⭐'}
       </div>
 
       <div>
 
         <div class="name">
-        ${esc(x.name)}
+          ${esc(x.name)}
         </div>
 
         <div class="meta">
+
           ${
-            x.cycle==='monthly'
-            ? (
+            x.cycle === 'monthly'
+            ?
+            (
               lang==='ar'
               ? 'شهري'
               : 'Monthly'
             )
-            : (
+            :
+            (
               lang==='ar'
               ? 'سنوي'
               : 'Annual'
             )
           }
-          •
-          ${renewalText}
+
+          • ${renewalText}
+
         </div>
 
         <span class="tag ${x.status}">
@@ -2335,12 +2301,11 @@ function card(x,full=false){
       </div>
 
       <div class="price">
-
         ${money(x.price)}
-
       </div>
 
     </div>
+
 
     ${
       full
@@ -2350,36 +2315,50 @@ function card(x,full=false){
 
         <button
           class="ghost"
-          onclick="openEdit(${x.id})">
-          ${lang==='ar'?'تعديل':'Edit'}
+          onclick="openEdit('${x.id}')">
+
+          ${
+            lang==='ar'
+            ? 'تعديل'
+            : 'Edit'
+          }
+
         </button>
+
 
         <button
           class="ghost"
-          onclick="togglePause(${x.id})">
+          onclick="togglePause('${x.id}')">
+
           ${
             x.status==='paused'
-            ? (
+            ?
+            (
               lang==='ar'
               ? 'استئناف'
               : 'Resume'
             )
-            : (
+            :
+            (
               lang==='ar'
               ? 'إيقاف'
               : 'Pause'
             )
           }
+
         </button>
+
 
         <button
           class="danger"
-          onclick="cancelSub(${x.id})">
+          onclick="cancelSub('${x.id}')">
+
           ${
             lang==='ar'
             ? 'إلغاء الاشتراك'
             : 'Cancel subscription'
           }
+
         </button>
 
       </div>
@@ -2390,7 +2369,6 @@ function card(x,full=false){
 
   </div>
   `;
-
 }
 
 
@@ -2400,19 +2378,17 @@ function render(){
     return;
 
 
-  loadLocalSubscriptions();
-
-
   const active =
     subs.filter(
-      x=>x.status==='active'
+      x=>
+        x.status==='active'
     );
 
 
   const total =
     active.reduce(
       (sum,x)=>
-      sum+monthly(x),
+        sum+monthly(x),
       0
     );
 
@@ -2436,10 +2412,7 @@ function render(){
       const d =
         daysLeft(x.date);
 
-      return (
-        d>=0 &&
-        d<=7
-      );
+      return d>=0 && d<=7;
 
     }).length;
 
@@ -2455,26 +2428,30 @@ function render(){
 
   const upcoming =
     [...active]
-    .sort(
-      (a,b)=>
-      new Date(a.date)-
-      new Date(b.date)
-    )
-    .slice(0,4);
+      .sort(
+        (a,b)=>
+          new Date(a.date)-
+          new Date(b.date)
+      )
+      .slice(0,4);
 
 
   $('homeList').innerHTML =
     upcoming.length
-    ? upcoming
-      .map(x=>card(x))
+    ?
+    upcoming
+      .map(
+        x=>card(x)
+      )
       .join('')
-    : `
+    :
+    `
       <div class="empty">
-      ${
-        lang==='ar'
-        ? 'لا توجد تجديدات قادمة'
-        : 'No upcoming renewals'
-      }
+        ${
+          lang==='ar'
+          ? 'لا توجد اشتراكات بعد. أضيفي أول اشتراك.'
+          : 'No subscriptions yet. Add your first subscription.'
+        }
       </div>
     `;
 
@@ -2489,26 +2466,25 @@ function render(){
     active.length;
 
   $('m4').textContent =
-    subs.length-
-    active.length;
+    subs.length-active.length;
 
 
   const avoided =
     subs
-    .filter(
-      x=>
-      x.status!=='active'
-    )
-    .reduce(
-      (sum,x)=>
-      sum+
-      (
-        x.cycle==='monthly'
-        ? Number(x.price)
-        : Number(x.price)/12
-      ),
-      0
-    );
+      .filter(
+        x=>
+          x.status !== 'active'
+      )
+      .reduce(
+        (sum,x)=>
+          sum+
+          (
+            x.cycle==='monthly'
+            ? Number(x.price)
+            : Number(x.price)/12
+          ),
+        0
+      );
 
 
   $('savingText').textContent =
@@ -2517,9 +2493,9 @@ function render(){
     (
       lang==='ar'
       ?
-      `الاشتراكات الموقوفة أو الملغاة تمثل تقريبًا ${money(avoided)} شهريًا.`
+      `الاشتراكات غير النشطة تمثل تقريبًا ${money(avoided)} شهريًا.`
       :
-      `Paused or cancelled subscriptions represent about ${money(avoided)} per month.`
+      `Inactive subscriptions represent about ${money(avoided)} monthly.`
     )
     :
     (
@@ -2535,15 +2511,15 @@ function render(){
     (
       lang==='ar'
       ?
-      `لديك ${active.length} اشتراكات نشطة بقيمة شهرية تقديرية ${money(total)}. راجعي الاشتراكات قبل موعد التجديد لتجنب المدفوعات غير الضرورية.`
+      `لديك ${active.length} اشتراكات نشطة بقيمة شهرية تقديرية ${money(total)}. راجعي الاشتراكات قبل مواعيد التجديد.`
       :
-      `You have ${active.length} active subscriptions with estimated monthly spending of ${money(total)}. Review subscriptions before renewal to avoid unnecessary charges.`
+      `You have ${active.length} active subscriptions with estimated monthly spending of ${money(total)}.`
     )
     :
     (
       lang==='ar'
-      ? 'أضيفي اشتراكاتك وسأعرض لك التحليل.'
-      : 'Add your subscriptions to see your analysis.'
+      ? 'أضيفي أول اشتراك لبدء التحليل.'
+      : 'Add your first subscription to start the analysis.'
     );
 
 
@@ -2552,8 +2528,8 @@ function render(){
     ?
     (
       lang==='ar'
-      ? 'مفعل — جاهز لربط البريد'
-      : 'Enabled — ready for email connection'
+      ? 'مفعل — ربط البريد هو الخطوة التالية'
+      : 'Enabled — email connection is the next step'
     )
     :
     (
@@ -2565,24 +2541,23 @@ function render(){
 
   renderSubs();
   renderPay();
-
 }
 
 
 function renderSubs(){
 
   const q =
-    (search.value||'')
-    .trim()
-    .toLowerCase();
+    (search.value || '')
+      .trim()
+      .toLowerCase();
 
 
   const list =
     subs.filter(
       x=>
-      x.name
-      .toLowerCase()
-      .includes(q)
+        x.name
+          .toLowerCase()
+          .includes(q)
     );
 
 
@@ -2590,21 +2565,20 @@ function renderSubs(){
     list.length
     ?
     list
-    .map(
-      x=>card(x,true)
-    )
-    .join('')
+      .map(
+        x=>card(x,true)
+      )
+      .join('')
     :
     `
-    <div class="empty">
-    ${
-      lang==='ar'
-      ? 'لا توجد نتائج'
-      : 'No results'
-    }
-    </div>
+      <div class="empty">
+        ${
+          lang==='ar'
+          ? 'لا توجد اشتراكات'
+          : 'No subscriptions'
+        }
+      </div>
     `;
-
 }
 
 
@@ -2613,7 +2587,7 @@ function renderPay(){
   const list =
     subs.filter(
       x=>
-      x.status==='active'
+        x.status==='active'
     );
 
 
@@ -2628,17 +2602,20 @@ function renderPay(){
         <input
           type="checkbox"
           ${selected.has(x.id)?'checked':''}
-          onchange="toggleSel(${x.id},this.checked)">
+          onchange="toggleSel('${x.id}',this.checked)">
 
         <span style="flex:1">
+
           <b>${esc(x.name)}</b>
+
           <div class="meta">
-          ${x.payment||'—'}
+            ${x.payment || '—'}
           </div>
+
         </span>
 
         <b>
-        ${money(monthly(x))}
+          ${money(monthly(x))}
         </b>
 
       </label>
@@ -2646,27 +2623,27 @@ function renderPay(){
     ).join('')
     :
     `
-    <div class="empty">
-    ${
-      lang==='ar'
-      ? 'لا توجد اشتراكات نشطة'
-      : 'No active subscriptions'
-    }
-    </div>
+      <div class="empty">
+        ${
+          lang==='ar'
+          ? 'لا توجد اشتراكات نشطة'
+          : 'No active subscriptions'
+        }
+      </div>
     `;
 
 
   const chosen =
     list.filter(
       x=>
-      selected.has(x.id)
+        selected.has(x.id)
     );
 
 
   const total =
     chosen.reduce(
       (sum,x)=>
-      sum+monthly(x),
+        sum+monthly(x),
       0
     );
 
@@ -2682,40 +2659,36 @@ function renderPay(){
       ? ' محدد'
       : ' selected'
     );
-
 }
 
 
-/* ======================================================
-   MODAL
-====================================================== */
+/* MODAL */
 
 const providerUrls = {
 
   chatgpt:
-  'https://chatgpt.com/',
+    'https://chatgpt.com/',
 
   netflix:
-  'https://www.netflix.com/account',
+    'https://www.netflix.com/account',
 
   adobe:
-  'https://account.adobe.com/plans',
+    'https://account.adobe.com/plans',
 
   canva:
-  'https://www.canva.com/settings/billing-and-plans',
+    'https://www.canva.com/settings/billing-and-plans',
 
   spotify:
-  'https://www.spotify.com/account/subscription/',
+    'https://www.spotify.com/account/subscription/',
 
   microsoft365:
-  'https://account.microsoft.com/services/',
+    'https://account.microsoft.com/services/',
 
   googleone:
-  'https://one.google.com/settings',
+    'https://one.google.com/settings',
 
   apple:
-  'https://apps.apple.com/account/subscriptions'
-
+    'https://apps.apple.com/account/subscriptions'
 };
 
 
@@ -2724,6 +2697,7 @@ function providerChanged(){
   const key =
     $('fProvider').value;
 
+
   if(
     providerUrls[key] &&
     !$('fUrl').value.trim()
@@ -2731,9 +2705,7 @@ function providerChanged(){
 
     $('fUrl').value =
       providerUrls[key];
-
   }
-
 }
 
 
@@ -2746,6 +2718,7 @@ function openAdd(){
 
 
   $('editId').value = '';
+
   $('fName').value = '';
   $('fPrice').value = '';
   $('fDate').value = '';
@@ -2763,8 +2736,8 @@ function openAdd(){
   $('fStatus').value =
     'active';
 
-  subModal.classList.add('on');
 
+  subModal.classList.add('on');
 }
 
 
@@ -2772,8 +2745,10 @@ function openEdit(id){
 
   const x =
     subs.find(
-      s=>s.id===id
+      s=>
+        s.id===id
     );
+
 
   if(!x)
     return;
@@ -2804,44 +2779,58 @@ function openEdit(id){
     x.status;
 
   $('fPayment').value =
-    x.payment||'';
+    x.payment || '';
 
   $('fUrl').value =
-    x.url||'';
+    x.url || '';
 
   $('fProvider').value =
-    x.providerKey||'';
+    x.providerKey || '';
 
   $('fExternalId').value =
-    x.externalSubscriptionId||'';
+    x.externalSubscriptionId || '';
 
   $('fEmail').value =
-    x.userEmail||
-    currentUser?.email||
+    x.userEmail ||
+    currentUser?.email ||
     '';
 
 
   subModal.classList.add('on');
-
 }
 
 
 function closeModal(){
 
   subModal.classList.remove('on');
-
 }
 
 
-function saveSub(){
+/* SAVE TO SUPABASE */
+
+async function saveSub(){
+
+  if(!currentUser){
+
+    toast(
+      lang==='ar'
+      ? 'يجب تسجيل الدخول أولًا'
+      : 'Please sign in first'
+    );
+
+    return;
+  }
+
 
   const name =
     $('fName').value.trim();
+
 
   const price =
     parseFloat(
       $('fPrice').value
     );
+
 
   const date =
     $('fDate').value;
@@ -2850,7 +2839,7 @@ function saveSub(){
   if(
     !name ||
     !Number.isFinite(price) ||
-    price<0 ||
+    price < 0 ||
     !date
   ){
 
@@ -2861,93 +2850,144 @@ function saveSub(){
     );
 
     return;
-
   }
 
 
   const editId =
-    Number(
-      $('editId').value
+    $('editId').value.trim();
+
+
+  const providerKey =
+    $('fProvider').value.trim();
+
+
+  const providerName =
+    providerDisplayName(
+      providerKey,
+      name
     );
 
 
-  const old =
-    subs.find(
-      x=>x.id===editId
-    );
+  const notes =
+    JSON.stringify({
+
+      payment:
+        $('fPayment')
+          .value
+          .trim(),
+
+      url:
+        $('fUrl')
+          .value
+          .trim(),
+
+      userEmail:
+        $('fEmail')
+          .value
+          .trim()
+
+    });
 
 
-  const obj = {
+  const payload = {
 
-    id:
-      editId ||
-      Date.now(),
+    user_id:
+      currentUser.id,
 
-    name,
+    provider_name:
+      providerName,
 
-    icon:
-      old?.icon ||
-      '⭐',
+    plan_name:
+      name,
 
-    price,
+    amount:
+      price,
 
-    cycle:
+    currency:
+      'SAR',
+
+    billing_cycle:
       $('fCycle').value,
 
-    date,
+    next_renewal_date:
+      date,
 
     status:
       $('fStatus').value,
 
-    payment:
-      $('fPayment')
-      .value
-      .trim(),
-
-    url:
-      $('fUrl')
-      .value
-      .trim(),
-
-    providerKey:
-      $('fProvider')
-      .value,
-
-    externalSubscriptionId:
+    provider_subscription_ref:
       $('fExternalId')
-      .value
-      .trim(),
+        .value
+        .trim() || null,
 
-    userEmail:
-      $('fEmail')
-      .value
-      .trim()
+    notes:
+      notes,
+
+    updated_at:
+      new Date()
+        .toISOString()
 
   };
 
 
+  let error = null;
+
+
   if(editId){
 
-    subs =
-      subs.map(
-        x=>
-        x.id===editId
-        ? obj
-        : x
-      );
+    const result =
+      await supabaseClient
+        .from('subscriptions')
+        .update(payload)
+        .eq(
+          'id',
+          editId
+        )
+        .eq(
+          'user_id',
+          currentUser.id
+        );
+
+    error =
+      result.error;
 
   }else{
 
-    subs.push(obj);
+    const result =
+      await supabaseClient
+        .from('subscriptions')
+        .insert(payload);
 
+    error =
+      result.error;
   }
 
 
-  persist();
+  if(error){
+
+    console.error(
+      'SAVE SUBSCRIPTION ERROR:',
+      error
+    );
+
+
+    toast(
+      lang==='ar'
+      ? 'تعذر حفظ الاشتراك في قاعدة البيانات'
+      : 'Could not save subscription'
+    );
+
+    return;
+  }
+
 
   closeModal();
 
+
+  await loadSubscriptionsFromSupabase();
+
   render();
+
 
   toast(
     editId
@@ -2960,49 +3000,96 @@ function saveSub(){
     :
     (
       lang==='ar'
-      ? 'تمت إضافة الاشتراك'
-      : 'Subscription added'
+      ? 'تم حفظ الاشتراك في حسابك'
+      : 'Subscription saved'
     )
   );
-
 }
 
 
-/* ======================================================
-   ACTIONS
-====================================================== */
+/* PAUSE */
 
-function togglePause(id){
-
-  subs =
-    subs.map(x=>{
-
-      if(x.id!==id)
-        return x;
-
-      return {
-        ...x,
-        status:
-          x.status==='paused'
-          ? 'active'
-          : 'paused'
-      };
-
-    });
-
-
-  persist();
-  render();
-
-}
-
-
-function cancelSub(id){
+async function togglePause(id){
 
   const x =
     subs.find(
-      s=>s.id===id
+      s=>
+        s.id===id
     );
+
+
+  if(!x)
+    return;
+
+
+  const newStatus =
+    x.status === 'paused'
+    ? 'active'
+    : 'paused';
+
+
+  const {
+    error
+  } =
+  await supabaseClient
+    .from('subscriptions')
+    .update({
+
+      status:
+        newStatus,
+
+      updated_at:
+        new Date()
+          .toISOString()
+
+    })
+    .eq(
+      'id',
+      id
+    )
+    .eq(
+      'user_id',
+      currentUser.id
+    );
+
+
+  if(error){
+
+    console.error(error);
+
+    toast(
+      lang==='ar'
+      ? 'تعذر تحديث الاشتراك'
+      : 'Could not update subscription'
+    );
+
+    return;
+  }
+
+
+  await loadSubscriptionsFromSupabase();
+
+  render();
+
+
+  toast(
+    lang==='ar'
+    ? 'تم تحديث حالة الاشتراك'
+    : 'Subscription status updated'
+  );
+}
+
+
+/* CANCELLATION */
+
+async function cancelSub(id){
+
+  const x =
+    subs.find(
+      s=>
+        s.id===id
+    );
+
 
   if(!x)
     return;
@@ -3020,14 +3107,66 @@ function cancelSub(id){
     return;
 
 
+  const newStatus =
+    x.url
+    ? 'action_required'
+    : 'pending_cancel';
+
+
+  const cancellationMethod =
+    x.url
+    ? 'provider_page'
+    : 'manual';
+
+
+  const {
+    error
+  } =
+  await supabaseClient
+    .from('subscriptions')
+    .update({
+
+      status:
+        newStatus,
+
+      cancellation_method:
+        cancellationMethod,
+
+      updated_at:
+        new Date()
+          .toISOString()
+
+    })
+    .eq(
+      'id',
+      id
+    )
+    .eq(
+      'user_id',
+      currentUser.id
+    );
+
+
+  if(error){
+
+    console.error(error);
+
+    toast(
+      lang==='ar'
+      ? 'تعذر بدء الإلغاء'
+      : 'Could not start cancellation'
+    );
+
+    return;
+  }
+
+
+  await loadSubscriptionsFromSupabase();
+
+  render();
+
+
   if(x.url){
-
-    x.status =
-      'action_required';
-
-    persist();
-    render();
-
 
     window.open(
       x.url,
@@ -3038,29 +3177,22 @@ function cancelSub(id){
 
     toast(
       lang==='ar'
-      ? 'تم فتح صفحة المزود الرسمية. لن نعتبر الاشتراك ملغيًا قبل التأكيد.'
-      : 'Official provider page opened. Subscription remains active until cancellation is confirmed.'
+      ? 'تم فتح صفحة المزود الرسمية، والحالة محفوظة بانتظار إتمام الإلغاء.'
+      : 'Official provider page opened.'
     );
 
   }else{
 
-    x.status =
-      'pending_cancel';
-
-    persist();
-    render();
-
-
     toast(
       lang==='ar'
       ? 'تم وضع الاشتراك قيد الإلغاء.'
-      : 'Subscription marked as cancellation pending.'
+      : 'Cancellation pending.'
     );
-
   }
-
 }
 
+
+/* PAYMENT SELECTION */
 
 function toggleSel(id,value){
 
@@ -3069,8 +3201,8 @@ function toggleSel(id,value){
   else
     selected.delete(id);
 
-  renderPay();
 
+  renderPay();
 }
 
 
@@ -3085,50 +3217,46 @@ function simulate(method){
     );
 
     return;
-
   }
 
 
   toast(
     lang==='ar'
-    ? `${method} — السداد الفعلي سيتم ربطه لاحقًا`
-    : `${method} — real payment integration will be added later`
+    ? `${method} — سيتم ربط السداد الحقيقي لاحقًا`
+    : `${method} — payment integration will be added later`
   );
-
 }
 
+
+/* EMAIL */
 
 function toggleAuto(){
 
   autoDetect =
     !autoDetect;
 
+
   $('autoSwitch')
-  .classList
-  .toggle(
-    'on',
-    autoDetect
-  );
+    .classList
+    .toggle(
+      'on',
+      autoDetect
+    );
+
 
   render();
-
 }
 
-
-/* ======================================================
-   EMAIL PLACEHOLDER
-====================================================== */
 
 function connectMail(provider){
 
   toast(
     lang==='ar'
     ?
-    `تسجيل الدخول يعمل الآن. سنربط ${provider} عبر OAuth في الخطوة التالية.`
+    `سيتم ربط ${provider} عبر OAuth في المرحلة التالية.`
     :
-    `Authentication is live. ${provider} OAuth will be connected in the next step.`
+    `${provider} OAuth will be connected in the next stage.`
   );
-
 }
 
 
@@ -3136,65 +3264,54 @@ function scanInbox(){
 
   toast(
     lang==='ar'
-    ? 'سيتم تفعيل فحص البريد بعد إعداد Gmail / Outlook OAuth.'
-    : 'Inbox scanning will activate after Gmail / Outlook OAuth setup.'
+    ? 'سيتم تفعيل فحص البريد بعد ربط Gmail وOutlook.'
+    : 'Inbox scanning will activate after Gmail/Outlook setup.'
   );
-
 }
 
 
-/* ======================================================
-   TOAST
-====================================================== */
+/* TOAST */
 
 function toast(message){
 
   const el =
     $('toast');
 
+
   el.textContent =
     message;
 
+
   el.classList.add('on');
+
 
   clearTimeout(
     window.toastTimer
   );
 
+
   window.toastTimer =
     setTimeout(
       ()=>
-      el.classList.remove('on'),
+        el.classList.remove('on'),
       2700
     );
-
 }
 
 
-/* ======================================================
-   MODAL BACKDROP
-====================================================== */
+/* MODAL */
 
 subModal.addEventListener(
   'click',
   event=>{
 
-    if(
-      event.target ===
-      subModal
-    ){
-
+    if(event.target === subModal)
       closeModal();
-
-    }
-
   }
 );
 
 
-/* ======================================================
-   START
-====================================================== */
+/* START */
 
 applyLang();
 initialiseAuth();
