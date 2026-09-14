@@ -5,157 +5,4421 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#071221">
 <title>SubControl</title>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-:root{--bg:#030814;--panel:#0b1728;--panel2:#111f33;--line:#223752;--text:#f7fafc;--muted:#8fa3bb;--brand:#7567ff;--brand2:#9a8fff;--green:#2ed47a;--red:#ff6b78}
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif}button,input,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}
-.auth-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:22px;background:radial-gradient(circle at 80% 10%,#5948d755,transparent 28%),#030814}.auth-card{width:min(100%,430px);background:#081526e8;border:1px solid #233a58;border-radius:28px;padding:28px 22px;box-shadow:0 30px 80px #0008}.auth-logo{text-align:center;font-size:29px;font-weight:950;margin-bottom:6px}.auth-sub{text-align:center;color:var(--muted);font-size:13px;margin-bottom:24px}.auth-tabs{display:grid;grid-template-columns:1fr 1fr;gap:5px;background:#111f33;padding:5px;border-radius:14px;margin-bottom:20px}.auth-tabs button{border:0;background:transparent;color:#869ab2;padding:11px;border-radius:10px;font-weight:850}.auth-tabs button.on{color:white;background:var(--brand)}.field,.auth-field{margin-bottom:12px}.field label,.auth-field label{display:block;color:#9db0c6;font-size:11px;margin-bottom:6px}.field input,.field select,.auth-field input{width:100%;border:1px solid #2a4160;background:#0f1e32;color:white;padding:13px;border-radius:12px;outline:none}.auth-main-btn,.primary{border:0;background:linear-gradient(135deg,#6356ef,#8477ff);color:white;font-weight:900}.auth-main-btn{width:100%;padding:14px;border-radius:13px}.auth-link{border:0;background:none;color:#aaa2ff;font-weight:800;display:block;margin:15px auto 0}.auth-msg{margin-top:14px;text-align:center;font-size:12px;min-height:20px}.auth-msg.error{color:#ff8f99}.auth-msg.ok{color:#72e7a7}
-.app{min-height:100vh;background:linear-gradient(180deg,#06101f,#030814)}.topbar{height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1px solid var(--line);background:#071221e8;position:sticky;top:0;z-index:10}.brand{font-weight:950;font-size:23px}.top-actions{display:flex;gap:8px;align-items:center}.iconbtn,.langbtn{border:1px solid var(--line);background:var(--panel2);color:white;border-radius:12px;height:40px;padding:0 12px;font-weight:800}.iconbtn{width:40px}.user-email{max-width:145px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#aebfff;font-size:11px}.content{padding:18px 16px 100px;max-width:1050px;margin:auto}.screen{display:none}.screen.on{display:block}.hero{padding:24px;border-radius:22px;background:linear-gradient(135deg,#5145df,#7968ff);box-shadow:0 16px 40px #5547ef33}.hero-amount{font-size:38px;font-weight:950;margin:6px 0 14px}.pills{display:flex;gap:8px;flex-wrap:wrap}.pill{padding:6px 9px;border-radius:99px;background:#ffffff18;border:1px solid #ffffff25;font-size:11px}.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}.quick button{background:var(--panel2);border:1px solid var(--line);color:white;border-radius:14px;padding:13px 8px;font-weight:850}.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:15px;margin-top:12px}.section-head{display:flex;justify-content:space-between;align-items:center;margin:18px 0 9px}.linkbtn{border:0;background:none;color:var(--brand2);font-weight:850}.sub{display:grid;grid-template-columns:46px 1fr auto;gap:11px;align-items:center}.ico{width:46px;height:46px;border-radius:13px;background:var(--panel2);display:grid;place-items:center;font-size:21px}.name{font-weight:850}.meta{font-size:11px;color:var(--muted);margin-top:3px}.price{font-weight:900;text-align:end}.tag{display:inline-block;margin-top:5px;font-size:9px;padding:4px 7px;border-radius:99px;font-weight:850}.active{background:#17854b25;color:#68e6a0}.paused{background:#9e681d28;color:#ffc773}.cancelled{background:#8c263428;color:#ff929d}.pending_cancel{background:#6b4d1738;color:#ffd27a}.action_required{background:#3b4f8b38;color:#aebfff}.row-actions{display:flex;gap:7px;margin-top:11px;flex-wrap:wrap}.ghost,.danger,.primary{border-radius:10px;padding:8px 10px;font-size:11px;font-weight:850}.ghost{background:#172842;color:white;border:1px solid #2c4462}.danger{background:#5b1d2a;color:#ffabb3;border:1px solid #833040}.search{width:100%;padding:13px 14px;background:var(--panel);border:1px solid var(--line);border-radius:14px;color:white;margin:8px 0 12px}.metricgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.metric{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px}.metric strong{display:block;font-size:22px;margin-top:4px}.bottomnav{position:fixed;bottom:0;left:0;right:0;display:grid;grid-template-columns:repeat(5,1fr);background:#071221f4;border-top:1px solid var(--line);padding:9px 4px calc(9px + env(safe-area-inset-bottom));z-index:12}.bottomnav button{border:0;background:none;color:#73859d;font-size:10px}.bottomnav .on{color:var(--brand2)}.bottomnav strong{display:block;font-size:17px}.empty{text-align:center;color:var(--muted);padding:25px}.modal{position:fixed;inset:0;background:#000b;display:none;align-items:flex-end;justify-content:center;z-index:30}.modal.on{display:flex}.sheet{width:min(100%,620px);max-height:90vh;overflow:auto;background:#0b1728;border:1px solid #263c58;border-radius:24px 24px 0 0;padding:18px 16px 24px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px}.sheet-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}.sheet-actions button{padding:12px}.toast{position:fixed;left:50%;bottom:95px;transform:translateX(-50%) translateY(15px);width:min(92%,520px);background:#172842;border:1px solid #304966;padding:12px 14px;border-radius:13px;opacity:0;pointer-events:none;transition:.2s;z-index:100;font-size:12px}.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+:root{
+  --bg:#030814;
+  --panel:#0b1728;
+  --panel2:#111f33;
+  --line:#223752;
+  --text:#f7fafc;
+  --muted:#8fa3bb;
+  --brand:#7567ff;
+  --brand2:#9a8fff;
+  --green:#2ed47a;
+  --yellow:#ffb84d;
+  --red:#ff6b78;
+  --sidebar:250px;
+}
+
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  min-height:100%;
+  background:var(--bg);
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;
+}
+
+button,input,select{font:inherit}
+button{cursor:pointer}
+
+body{min-height:100vh}
+
+.hidden{display:none!important}
+
+.app{
+  min-height:100vh;
+  background:
+    radial-gradient(circle at top right,#18264a55,transparent 28%),
+    linear-gradient(180deg,#06101f,#030814);
+}
+
+/* =========================
+   AUTH
+========================= */
+
+.auth-screen{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:22px;
+  background:
+    radial-gradient(circle at 80% 10%,#5948d755,transparent 28%),
+    radial-gradient(circle at 10% 80%,#172c5a55,transparent 30%),
+    #030814;
+}
+
+.auth-card{
+  width:min(100%,430px);
+  background:#081526e8;
+  border:1px solid #233a58;
+  border-radius:28px;
+  padding:28px 22px;
+  box-shadow:0 30px 80px #0008;
+  backdrop-filter:blur(20px);
+}
+
+.auth-logo{
+  text-align:center;
+  font-size:29px;
+  font-weight:950;
+  margin-bottom:6px;
+}
+
+.auth-sub{
+  text-align:center;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.7;
+  margin-bottom:24px;
+}
+
+.auth-tabs{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:5px;
+  background:#111f33;
+  padding:5px;
+  border-radius:14px;
+  margin-bottom:20px;
+}
+
+.auth-tabs button{
+  border:0;
+  background:transparent;
+  color:#869ab2;
+  padding:11px;
+  border-radius:10px;
+  font-weight:850;
+}
+
+.auth-tabs button.on{
+  color:#fff;
+  background:#7567ff;
+}
+
+.auth-field{
+  margin-bottom:13px;
+}
+
+.auth-field label{
+  display:block;
+  color:#9db0c6;
+  font-size:11px;
+  margin-bottom:7px;
+}
+
+.auth-field input{
+  width:100%;
+  border:1px solid #2a4160;
+  background:#0f1e32;
+  color:white;
+  outline:none;
+  padding:14px;
+  border-radius:13px;
+}
+
+.auth-field input:focus{
+  border-color:#7567ff;
+}
+
+.auth-main-btn{
+  width:100%;
+  border:0;
+  border-radius:13px;
+  padding:14px;
+  background:linear-gradient(135deg,#6356ef,#8477ff);
+  color:white;
+  font-weight:900;
+  margin-top:5px;
+}
+
+.auth-link{
+  border:0;
+  background:none;
+  color:#aaa2ff;
+  font-weight:800;
+  display:block;
+  margin:15px auto 0;
+}
+
+.auth-msg{
+  margin-top:14px;
+  font-size:12px;
+  line-height:1.6;
+  text-align:center;
+  min-height:20px;
+}
+
+.auth-msg.error{color:#ff8f99}
+.auth-msg.ok{color:#72e7a7}
+
+/* =========================
+   APP
+========================= */
+
+.sidebar{display:none}
+
+.topbar{
+  height:72px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 18px;
+  border-bottom:1px solid var(--line);
+  background:#071221e8;
+  backdrop-filter:blur(18px);
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+.brand{
+  font-weight:950;
+  font-size:23px;
+}
+
+.brand i{
+  font-style:normal;
+  color:var(--brand2);
+}
+
+.top-actions{
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+
+.iconbtn,
+.langbtn{
+  border:1px solid var(--line);
+  background:var(--panel2);
+  color:white;
+  border-radius:12px;
+  height:40px;
+  padding:0 12px;
+  font-weight:800;
+}
+
+.iconbtn{
+  width:40px;
+  padding:0;
+}
+
+.user-email{
+  max-width:150px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  color:#aebfff;
+  font-size:11px;
+}
+
+.content{
+  padding:18px 16px 96px;
+  max-width:1180px;
+  margin:auto;
+}
+
+.screen{display:none}
+.screen.on{display:block}
+
+.page-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:14px;
+  gap:10px;
+}
+
+.page-title h1{
+  font-size:24px;
+  margin:0;
+}
+
+.page-title p{
+  margin:4px 0 0;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.hero{
+  padding:24px;
+  border-radius:22px;
+  background:linear-gradient(135deg,#5145df,#7968ff);
+  box-shadow:0 16px 40px #5547ef33;
+}
+
+.hero small{
+  color:#eae8ff;
+}
+
+.hero-amount{
+  font-size:38px;
+  font-weight:950;
+  margin:6px 0 14px;
+}
+
+.pills{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.pill{
+  padding:6px 9px;
+  border-radius:99px;
+  background:#ffffff18;
+  border:1px solid #ffffff25;
+  font-size:11px;
+}
+
+.dashboard-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:14px;
+}
+
+.card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:15px;
+  margin-bottom:10px;
+}
+
+.quick{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+}
+
+.quick button{
+  background:var(--panel2);
+  border:1px solid var(--line);
+  color:white;
+  border-radius:14px;
+  padding:13px 8px;
+  font-weight:850;
+  font-size:12px;
+}
+
+.quick b{
+  display:block;
+  font-size:19px;
+  margin-bottom:5px;
+}
+
+.section-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin:18px 0 9px;
+}
+
+.section-head h3{
+  margin:0;
+  font-size:16px;
+}
+
+.linkbtn{
+  border:0;
+  background:none;
+  color:var(--brand2);
+  font-weight:850;
+}
+
+.sub{
+  display:grid;
+  grid-template-columns:46px 1fr auto;
+  gap:11px;
+  align-items:center;
+}
+
+.ico{
+  width:46px;
+  height:46px;
+  border-radius:13px;
+  background:var(--panel2);
+  display:grid;
+  place-items:center;
+  font-size:21px;
+}
+
+.name{
+  font-weight:850;
+}
+
+.meta{
+  font-size:11px;
+  line-height:1.5;
+  color:var(--muted);
+  margin-top:3px;
+}
+
+.price{
+  text-align:end;
+  font-weight:900;
+}
+
+.tag{
+  display:inline-block;
+  margin-top:5px;
+  font-size:9px;
+  padding:4px 7px;
+  border-radius:99px;
+  font-weight:850;
+}
+
+.active{
+  background:#17854b25;
+  color:#68e6a0;
+}
+
+.paused{
+  background:#9e681d28;
+  color:#ffc773;
+}
+
+.cancelled{
+  background:#8c263428;
+  color:#ff929d;
+}
+
+.pending_cancel{
+  background:#6b4d1738;
+  color:#ffd27a;
+}
+
+.action_required{
+  background:#3b4f8b38;
+  color:#aebfff;
+}
+
+.row-actions{
+  display:flex;
+  gap:7px;
+  margin-top:11px;
+  flex-wrap:wrap;
+}
+
+.ghost,
+.primary,
+.danger{
+  border-radius:10px;
+  padding:8px 10px;
+  font-size:11px;
+  font-weight:850;
+}
+
+.ghost{
+  background:#172842;
+  color:#fff;
+  border:1px solid #2c4462;
+}
+
+.primary{
+  background:var(--brand);
+  border:1px solid var(--brand);
+  color:white;
+}
+
+.danger{
+  background:#5b1d2a;
+  color:#ffabb3;
+  border:1px solid #833040;
+}
+
+.search{
+  width:100%;
+  padding:13px 14px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:14px;
+  color:white;
+  outline:none;
+  margin:5px 0 12px;
+}
+
+.metricgrid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.metric{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:14px;
+}
+
+.metric small{
+  color:var(--muted);
+}
+
+.metric strong{
+  display:block;
+  font-size:22px;
+  margin-top:4px;
+}
+
+.detect{
+  background:linear-gradient(135deg,#14243a,#0c1726);
+  border:1px solid #2b4362;
+  border-radius:18px;
+  padding:15px;
+}
+
+.detect-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.switch{
+  width:48px;
+  height:27px;
+  border-radius:99px;
+  background:#2b3d56;
+  position:relative;
+}
+
+.switch i{
+  position:absolute;
+  width:21px;
+  height:21px;
+  background:white;
+  border-radius:50%;
+  top:3px;
+  inset-inline-start:3px;
+  transition:.2s;
+}
+
+.switch.on{
+  background:var(--brand);
+}
+
+.switch.on i{
+  inset-inline-start:24px;
+}
+
+.detect-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:12px;
+}
+
+.detect-actions button{
+  padding:11px;
+  border-radius:11px;
+  background:#1a2a42;
+  border:1px solid #2c4462;
+  color:white;
+  font-weight:850;
+}
+
+.total{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  margin:17px 0;
+}
+
+.total strong{
+  font-size:30px;
+}
+
+.methods{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
+}
+
+.method{
+  padding:13px;
+  border-radius:12px;
+  border:1px solid var(--line);
+  background:#fff;
+  color:#000;
+  font-weight:900;
+}
+
+.method.dark{
+  background:#182943;
+  color:#fff;
+}
+
+.notice{
+  font-size:10px;
+  line-height:1.6;
+  color:var(--muted);
+  margin-top:10px;
+}
+
+.profile-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:12px;
+}
+
+.profile-row{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:12px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.profile-row:last-child{
+  border-bottom:0;
+}
+
+.empty{
+  text-align:center;
+  color:var(--muted);
+  padding:28px 8px;
+}
+
+.bottomnav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  background:#071221f4;
+  border-top:1px solid var(--line);
+  backdrop-filter:blur(15px);
+  padding:9px 4px calc(9px + env(safe-area-inset-bottom));
+  z-index:12;
+}
+
+.bottomnav button{
+  border:0;
+  background:none;
+  color:#73859d;
+  font-size:10px;
+}
+
+.bottomnav strong{
+  display:block;
+  font-size:17px;
+  margin-bottom:3px;
+}
+
+.bottomnav .on{
+  color:var(--brand2);
+}
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:#000b;
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+  z-index:30;
+}
+
+.modal.on{
+  display:flex;
+}
+
+.sheet{
+  width:min(100%,620px);
+  max-height:90vh;
+  overflow:auto;
+  background:#0b1728;
+  border:1px solid #263c58;
+  border-radius:24px 24px 0 0;
+  padding:18px 16px 24px;
+}
+
+.sheet h2{
+  margin:0 0 14px;
+  font-size:19px;
+}
+
+.grid2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+}
+
+.field{
+  margin-bottom:11px;
+}
+
+.field label{
+  display:block;
+  color:#a8b7c9;
+  font-size:11px;
+  margin-bottom:6px;
+}
+
+.field input,
+.field select{
+  width:100%;
+  background:#101f34;
+  border:1px solid #2b405b;
+  color:white;
+  border-radius:12px;
+  padding:12px;
+  outline:none;
+}
+
+.sheet-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:14px;
+}
+
+.sheet-actions button{
+  padding:12px;
+  border-radius:12px;
+  font-weight:850;
+}
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:95px;
+  transform:translateX(-50%) translateY(15px);
+  width:min(90%,520px);
+  background:#172842;
+  border:1px solid #304966;
+  padding:12px 14px;
+  border-radius:13px;
+  opacity:0;
+  pointer-events:none;
+  transition:.2s;
+  z-index:100;
+  font-size:12px;
+}
+
+.toast.on{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+@media(min-width:900px){
+
+  .app{
+    padding-inline-start:var(--sidebar);
+  }
+
+  .sidebar{
+    display:flex;
+    position:fixed;
+    inset-block:0;
+    inset-inline-start:0;
+    width:var(--sidebar);
+    background:#071221;
+    border-inline-end:1px solid var(--line);
+    padding:22px 16px;
+    flex-direction:column;
+    z-index:20;
+  }
+
+  .sidebar .brand{
+    margin-bottom:24px;
+  }
+
+  .side-nav{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+  }
+
+  .side-nav button{
+    display:flex;
+    align-items:center;
+    gap:11px;
+    border:1px solid transparent;
+    background:none;
+    color:#8ea1b8;
+    border-radius:12px;
+    padding:12px 13px;
+    text-align:start;
+    font-weight:800;
+  }
+
+  .side-nav button.on{
+    background:#161f3a;
+    border-color:#2c3f65;
+    color:#c8c2ff;
+  }
+
+  .side-foot{
+    margin-top:auto;
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.6;
+  }
+
+  .topbar{
+    padding:0 28px;
+  }
+
+  .topbar .brand{
+    display:none;
+  }
+
+  .content{
+    padding:26px 28px 40px;
+  }
+
+  .bottomnav{
+    display:none;
+  }
+
+  .dashboard-grid{
+    grid-template-columns:minmax(0,1.3fr) minmax(330px,.7fr);
+    align-items:start;
+  }
+
+  .profile-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .metricgrid{
+    grid-template-columns:repeat(4,1fr);
+  }
+
+  .modal{
+    align-items:center;
+  }
+
+  .sheet{
+    border-radius:22px;
+  }
+
+  .toast{
+    bottom:28px;
+  }
+}
 </style>
 </head>
+
 <body>
+
 <section id="authScreen" class="auth-screen">
-  <div class="auth-card">
-    <div class="auth-logo">⚡ SubControl</div>
-    <div class="auth-sub">تحكم في اشتراكاتك ومدفوعاتك من مكان واحد</div>
-    <div class="auth-tabs">
-      <button id="loginTab" class="on" onclick="showLogin()">تسجيل الدخول</button>
-      <button id="signupTab" onclick="showSignup()">إنشاء حساب</button>
+
+<div class="auth-card">
+
+  <div class="auth-logo">
+    ⚡ SubControl
+  </div>
+
+  <div class="auth-sub">
+    تحكم في اشتراكاتك ومدفوعاتك من مكان واحد
+  </div>
+
+  <div class="auth-tabs">
+    <button id="loginTab" class="on" onclick="showLogin()">تسجيل الدخول</button>
+    <button id="signupTab" onclick="showSignup()">إنشاء حساب</button>
+  </div>
+
+  <div id="loginForm">
+
+    <div class="auth-field">
+      <label>البريد الإلكتروني</label>
+      <input id="loginEmail" type="email" autocomplete="email">
     </div>
-    <div id="loginForm">
-      <div class="auth-field"><label>البريد الإلكتروني</label><input id="loginEmail" type="email" autocomplete="email"></div>
-      <div class="auth-field"><label>كلمة المرور</label><input id="loginPassword" type="password" autocomplete="current-password"></div>
-      <button class="auth-main-btn" onclick="loginUser()">تسجيل الدخول</button>
-      <button class="auth-link" onclick="forgotPassword()">نسيت كلمة المرور؟</button>
+
+    <div class="auth-field">
+      <label>كلمة المرور</label>
+      <input id="loginPassword" type="password" autocomplete="current-password">
     </div>
-    <div id="signupForm" class="hidden">
-      <div class="auth-field"><label>الاسم</label><input id="signupName"></div>
-      <div class="auth-field"><label>البريد الإلكتروني</label><input id="signupEmail" type="email"></div>
-      <div class="auth-field"><label>كلمة المرور</label><input id="signupPassword" type="password"></div>
-      <button class="auth-main-btn" onclick="signupUser()">إنشاء الحساب</button>
+
+    <button class="auth-main-btn" onclick="loginUser()">
+      تسجيل الدخول
+    </button>
+
+    <button class="auth-link" onclick="forgotPassword()">
+      نسيت كلمة المرور؟
+    </button>
+
+  </div>
+
+  <div id="signupForm" class="hidden">
+
+    <div class="auth-field">
+      <label>الاسم</label>
+      <input id="signupName">
     </div>
-    <div id="authMessage" class="auth-msg"></div>
-  </div>
-</section>
 
-<div id="mainApp" class="app hidden">
-<header class="topbar">
-  <div class="brand">SubControl ⚡</div>
-  <div class="top-actions">
-    <span id="headerEmail" class="user-email"></span>
-    <button id="langBtn" class="langbtn" onclick="toggleLang()">EN</button>
-    <button class="iconbtn" onclick="openAdd()">＋</button>
-  </div>
-</header>
-<main class="content">
-<section class="screen on" id="home">
-  <h1 data-ar="لوحة التحكم" data-en="Dashboard"></h1>
-  <div class="hero">
-    <small data-ar="التزاماتك الشهرية" data-en="Monthly commitments"></small>
-    <div class="hero-amount" id="heroTotal">0</div>
-    <div class="pills"><span class="pill" id="countPill"></span><span class="pill" id="nearPill"></span></div>
-  </div>
-  <div class="quick">
-    <button onclick="openAdd()">＋<br><span data-ar="إضافة اشتراك" data-en="Add subscription"></span></button>
-    <button onclick="scanInbox()">✉️<br><span data-ar="فحص البريد" data-en="Scan email"></span></button>
-    <button onclick="go('pay')">◈<br><span data-ar="السداد" data-en="Payments"></span></button>
-  </div>
-  <div class="section-head"><h3 data-ar="التجديدات القادمة" data-en="Upcoming renewals"></h3><button class="linkbtn" onclick="go('subs')">عرض الكل</button></div>
-  <div id="homeList"></div>
-  <div class="card"><b>✨ SubControl AI</b><div class="meta" id="aiText"></div></div>
-</section>
+    <div class="auth-field">
+      <label>البريد الإلكتروني</label>
+      <input id="signupEmail" type="email">
+    </div>
 
-<section class="screen" id="subs">
-  <h1 data-ar="الاشتراكات" data-en="Subscriptions"></h1>
-  <button class="primary" onclick="openAdd()">+ إضافة</button>
-  <input id="search" class="search" placeholder="ابحث عن اشتراك..." oninput="renderSubs()">
-  <div id="allList"></div>
-</section>
+    <div class="auth-field">
+      <label>كلمة المرور</label>
+      <input id="signupPassword" type="password">
+    </div>
 
-<section class="screen" id="pay">
-  <h1 data-ar="مركز السداد" data-en="Payment Center"></h1>
-  <div class="card"><div id="payList"></div><div class="section-head"><strong id="payTotal">0</strong><span id="payCount" class="meta"></span></div></div>
-</section>
+    <button class="auth-main-btn" onclick="signupUser()">
+      إنشاء الحساب
+    </button>
 
-<section class="screen" id="analytics">
-  <h1 data-ar="التحليلات" data-en="Analytics"></h1>
-  <div class="metricgrid">
-    <div class="metric"><small>شهري</small><strong id="m1">0</strong></div>
-    <div class="metric"><small>سنوي</small><strong id="m2">0</strong></div>
-    <div class="metric"><small>نشط</small><strong id="m3">0</strong></div>
-    <div class="metric"><small>غير نشط</small><strong id="m4">0</strong></div>
   </div>
-</section>
 
-<section class="screen" id="profile">
-  <h1 data-ar="الحساب" data-en="Account"></h1>
-  <div class="card"><div class="meta">البريد الإلكتروني</div><b id="profileEmail">—</b><div class="row-actions"><button class="danger" onclick="logoutUser()">تسجيل الخروج</button></div></div>
-</section>
-</main>
-<nav id="bottomNav" class="bottomnav"></nav>
+  <div id="authMessage" class="auth-msg"></div>
+
 </div>
 
-<div id="subModal" class="modal"><div class="sheet">
-  <h2 id="modalTitle">إضافة اشتراك</h2>
-  <input type="hidden" id="editId">
-  <div class="grid2"><div class="field"><label>اسم الخدمة</label><input id="fName"></div><div class="field"><label>السعر</label><input id="fPrice" type="number" step="0.01"></div></div>
-  <div class="grid2"><div class="field"><label>دورة الفوترة</label><select id="fCycle"><option value="monthly">شهري</option><option value="yearly">سنوي</option></select></div><div class="field"><label>تاريخ التجديد</label><input id="fDate" type="date"></div></div>
-  <div class="grid2"><div class="field"><label>الحالة</label><select id="fStatus"><option value="active">نشط</option><option value="paused">موقوف</option><option value="cancelled">ملغي</option></select></div><div class="field"><label>طريقة الدفع</label><input id="fPayment"></div></div>
-  <div class="field"><label>رابط إدارة الاشتراك</label><input id="fUrl"></div>
-  <div class="grid2"><div class="field"><label>مزود الاشتراك</label><select id="fProvider" onchange="providerChanged()"><option value=""></option><option value="chatgpt">ChatGPT</option><option value="netflix">Netflix</option><option value="adobe">Adobe</option><option value="canva">Canva</option><option value="spotify">Spotify</option><option value="microsoft365">Microsoft 365</option><option value="googleone">Google One</option><option value="apple">Apple / App Store</option></select></div><div class="field"><label>رقم الاشتراك لدى المزود</label><input id="fExternalId"></div></div>
-  <div class="field"><label>البريد المرتبط بالاشتراك</label><input id="fEmail" type="email"></div>
-  <div class="sheet-actions"><button class="primary" onclick="saveSub()">حفظ</button><button class="ghost" onclick="closeModal()">إلغاء</button></div>
-</div></div>
-<div id="toast" class="toast"></div>
+</section>
+
+
+<div id="mainApp" class="app hidden">
+
+<aside class="sidebar">
+
+  <div class="brand">
+    SubControl <i>⚡</i>
+  </div>
+
+  <nav class="side-nav" id="sideNav"></nav>
+
+  <div class="side-foot">
+    منصة واحدة لإدارة الاشتراكات على الجوال والويب.
+  </div>
+
+</aside>
+
+
+<header class="topbar">
+
+  <div class="brand">
+    SubControl <i>⚡</i>
+  </div>
+
+  <div class="top-actions">
+
+    <span id="headerEmail" class="user-email"></span>
+
+    <button class="langbtn" id="langBtn" onclick="toggleLang()">
+      EN
+    </button>
+
+    <button class="iconbtn" onclick="openAdd()">
+      ＋
+    </button>
+
+  </div>
+
+</header>
+
+
+<main class="content">
+
+<section class="screen on" id="home">
+
+<div class="page-title">
+
+  <div>
+
+    <h1 data-ar="لوحة التحكم" data-en="Dashboard"></h1>
+
+    <p
+      data-ar="كل اشتراكاتك ومدفوعاتك في مكان واحد"
+      data-en="All your subscriptions and payments in one place">
+    </p>
+
+  </div>
+
+</div>
+
+
+<div class="dashboard-grid">
+
+<div>
+
+<div class="hero">
+
+  <small
+    data-ar="التزاماتك الشهرية"
+    data-en="Monthly commitments">
+  </small>
+
+  <div class="hero-amount" id="heroTotal">
+    0
+  </div>
+
+  <div class="pills">
+
+    <span class="pill" id="countPill"></span>
+
+    <span class="pill" id="nearPill"></span>
+
+    <span
+      class="pill"
+      data-ar="تحكم كامل في مكان واحد"
+      data-en="Full control in one place">
+    </span>
+
+  </div>
+
+</div>
+
+
+<div class="card" style="margin-top:14px">
+
+<div class="quick">
+
+<button onclick="openAdd()">
+
+  <b>＋</b>
+
+  <span
+    data-ar="إضافة اشتراك"
+    data-en="Add subscription">
+  </span>
+
+</button>
+
+
+<button onclick="scanInbox()">
+
+  <b>✉️</b>
+
+  <span
+    data-ar="فحص البريد"
+    data-en="Scan email">
+  </span>
+
+</button>
+
+
+<button onclick="go('pay')">
+
+  <b>◈</b>
+
+  <span
+    data-ar="السداد"
+    data-en="Payments">
+  </span>
+
+</button>
+
+</div>
+
+</div>
+
+
+<div class="section-head">
+
+<h3
+  data-ar="التجديدات القادمة"
+  data-en="Upcoming renewals">
+</h3>
+
+<button
+  class="linkbtn"
+  onclick="go('subs')">
+  عرض الكل
+</button>
+
+</div>
+
+<div id="homeList"></div>
+
+</div>
+
+
+<div>
+
+<div class="detect">
+
+<div class="detect-top">
+
+<div>
+
+<div
+  class="name"
+  data-ar="الاكتشاف التلقائي"
+  data-en="Auto detection">
+</div>
+
+<div class="meta" id="detectText"></div>
+
+</div>
+
+
+<div
+  class="switch on"
+  id="autoSwitch"
+  onclick="toggleAuto()">
+
+  <i></i>
+
+</div>
+
+</div>
+
+
+<div class="detect-actions">
+
+<button onclick="connectMail('Gmail')">
+  Gmail
+</button>
+
+<button onclick="connectMail('Outlook')">
+  Outlook
+</button>
+
+</div>
+
+</div>
+
+
+<div class="section-head">
+
+<h3>
+  ✨ SubControl AI
+</h3>
+
+</div>
+
+
+<div class="card">
+
+<div
+  class="meta"
+  id="aiText"
+  style="font-size:12px;line-height:1.8">
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section class="screen" id="subs">
+
+<div class="page-title">
+
+<div>
+
+<h1
+  data-ar="الاشتراكات"
+  data-en="Subscriptions">
+</h1>
+
+<p
+  data-ar="إضافة وتعديل وإيقاف وإلغاء الاشتراكات"
+  data-en="Add, edit, pause and cancel subscriptions">
+</p>
+
+</div>
+
+
+<button
+  class="primary"
+  onclick="openAdd()">
+
+  + إضافة
+
+</button>
+
+</div>
+
+
+<input
+  id="search"
+  class="search"
+  placeholder="ابحث عن اشتراك..."
+  oninput="renderSubs()">
+
+
+<div id="allList"></div>
+
+</section>
+
+
+<section class="screen" id="pay">
+
+<div class="page-title">
+
+<div>
+
+<h1
+  data-ar="مركز السداد"
+  data-en="Payment Center">
+</h1>
+
+<p
+  data-ar="حدد الاشتراكات التي تريد سدادها"
+  data-en="Select subscriptions to pay">
+</p>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div id="payList"></div>
+
+<div class="total">
+
+<div>
+
+<div class="meta">
+إجمالي المحدد
+</div>
+
+<strong id="payTotal">
+0
+</strong>
+
+</div>
+
+<span
+  class="meta"
+  id="payCount">
+</span>
+
+</div>
+
+
+<div class="methods">
+
+<button
+  class="method"
+  onclick="simulate('Apple Pay')">
+   Pay
+</button>
+
+<button
+  class="method dark"
+  onclick="simulate('Visa / Mastercard')">
+  Visa / Mastercard
+</button>
+
+<button
+  class="method dark"
+  onclick="simulate('Mada')">
+  Mada
+</button>
+
+<button
+  class="method dark"
+  onclick="simulate('Bank Transfer')">
+  Bank Transfer
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section class="screen" id="analytics">
+
+<div class="page-title">
+
+<div>
+
+<h1
+  data-ar="التحليلات"
+  data-en="Analytics">
+</h1>
+
+<p
+  data-ar="ملخص الإنفاق وفرص التوفير"
+  data-en="Spending summary and savings opportunities">
+</p>
+
+</div>
+
+</div>
+
+
+<div class="metricgrid">
+
+<div class="metric">
+
+<small
+  data-ar="شهري"
+  data-en="Monthly">
+</small>
+
+<strong id="m1">
+0
+</strong>
+
+</div>
+
+
+<div class="metric">
+
+<small
+  data-ar="سنوي"
+  data-en="Annual">
+</small>
+
+<strong id="m2">
+0
+</strong>
+
+</div>
+
+
+<div class="metric">
+
+<small
+  data-ar="نشط"
+  data-en="Active">
+</small>
+
+<strong id="m3">
+0
+</strong>
+
+</div>
+
+
+<div class="metric">
+
+<small
+  data-ar="غير نشط"
+  data-en="Inactive">
+</small>
+
+<strong id="m4">
+0
+</strong>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section class="screen" id="profile">
+
+<div class="page-title">
+
+<div>
+
+<h1
+  data-ar="الحساب"
+  data-en="Account">
+</h1>
+
+<p
+  data-ar="الحساب والأمان"
+  data-en="Account and security">
+</p>
+
+</div>
+
+</div>
+
+
+<div class="profile-grid">
+
+<div class="card">
+
+<h3>
+الحساب
+</h3>
+
+<div class="profile-row">
+
+<span>
+البريد الإلكتروني
+</span>
+
+<b id="profileEmail">
+—
+</b>
+
+</div>
+
+
+<div class="row-actions">
+
+<button
+  class="danger"
+  onclick="logoutUser()">
+
+تسجيل الخروج
+
+</button>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+الأمان
+</h3>
+
+<div class="meta">
+تسجيل الدخول والبيانات مرتبطة بحساب Supabase ويعرض كل مستخدم بياناته فقط.
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+
+<nav
+  class="bottomnav"
+  id="bottomNav">
+</nav>
+
+</div>
+
+
+<div
+  class="modal"
+  id="subModal">
+
+<div class="sheet">
+
+<h2 id="modalTitle">
+إضافة اشتراك
+</h2>
+
+
+<input
+  type="hidden"
+  id="editId">
+
+
+<div class="grid2">
+
+<div class="field">
+
+<label>
+اسم الخدمة
+</label>
+
+<input id="fName">
+
+</div>
+
+
+<div class="field">
+
+<label>
+السعر
+</label>
+
+<input
+  id="fPrice"
+  type="number"
+  step="0.01"
+  min="0">
+
+</div>
+
+</div>
+
+
+<div class="grid2">
+
+<div class="field">
+
+<label>
+دورة الفوترة
+</label>
+
+<select id="fCycle">
+
+<option value="monthly">
+شهري
+</option>
+
+<option value="yearly">
+سنوي
+</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label>
+تاريخ التجديد
+</label>
+
+<input
+  id="fDate"
+  type="date">
+
+</div>
+
+</div>
+
+
+<div class="grid2">
+
+<div class="field">
+
+<label>
+الحالة
+</label>
+
+<select id="fStatus">
+
+<option value="active">
+نشط
+</option>
+
+<option value="paused">
+موقوف
+</option>
+
+<option value="cancelled">
+ملغي
+</option>
+
+<option value="pending_cancel">
+قيد الإلغاء
+</option>
+
+<option value="action_required">
+بانتظار إكمال الإلغاء
+</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label>
+طريقة الدفع
+</label>
+
+<input id="fPayment">
+
+</div>
+
+</div>
+
+
+<div class="field">
+
+<label>
+رابط إدارة الاشتراك
+</label>
+
+<input
+  id="fUrl"
+  placeholder="https://...">
+
+</div>
+
+
+<div class="grid2">
+
+<div class="field">
+
+<label>
+مزود الاشتراك
+</label>
+
+<select
+  id="fProvider"
+  onchange="providerChanged()">
+
+<option value=""></option>
+
+<option value="chatgpt">
+ChatGPT
+</option>
+
+<option value="netflix">
+Netflix
+</option>
+
+<option value="adobe">
+Adobe
+</option>
+
+<option value="canva">
+Canva
+</option>
+
+<option value="spotify">
+Spotify
+</option>
+
+<option value="microsoft365">
+Microsoft 365
+</option>
+
+<option value="googleone">
+Google One
+</option>
+
+<option value="apple">
+Apple / App Store
+</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label>
+رقم الاشتراك لدى المزود
+</label>
+
+<input id="fExternalId">
+
+</div>
+
+</div>
+
+
+<div class="field">
+
+<label>
+البريد المرتبط بالاشتراك
+</label>
+
+<input
+  id="fEmail"
+  type="email">
+
+</div>
+
+
+<div class="sheet-actions">
+
+<button
+  class="primary"
+  onclick="saveSub()">
+
+حفظ
+
+</button>
+
+
+<button
+  class="ghost"
+  onclick="closeModal()">
+
+إلغاء
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div
+  class="toast"
+  id="toast">
+</div>
+
 
 <script>
-const SUPABASE_URL='https://xptsdmsrxdczbgcaybxb.supabase.co';
-const SUPABASE_PUBLISHABLE_KEY='sb_publishable_nRufSl9ODK6bT-qhiBm1PQ_ELckjnHf';
-const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
-const $=id=>document.getElementById(id);
-let currentUser=null,subs=[],selected=new Set(),lang=localStorage.getItem('subcontrol_lang')||'ar',current='home';
 
-function err(e){return [e?.message,e?.details,e?.hint,e?.code].filter(Boolean).join(' | ')||String(e||'Unknown error')}
-function toast(m){const e=$('toast');e.textContent=m;e.classList.add('on');clearTimeout(window._t);window._t=setTimeout(()=>e.classList.remove('on'),5000)}
-function showLogin(){$('loginForm').classList.remove('hidden');$('signupForm').classList.add('hidden');$('loginTab').classList.add('on');$('signupTab').classList.remove('on');$('authMessage').textContent=''}
-function showSignup(){$('signupForm').classList.remove('hidden');$('loginForm').classList.add('hidden');$('signupTab').classList.add('on');$('loginTab').classList.remove('on');$('authMessage').textContent=''}
-async function signupUser(){const email=$('signupEmail').value.trim(),password=$('signupPassword').value,name=$('signupName').value.trim();if(!email||password.length<8)return $('authMessage').textContent='أدخلي بريدًا صحيحًا وكلمة مرور 8 أحرف على الأقل';const{data,error}=await supabaseClient.auth.signUp({email,password,options:{data:{full_name:name},emailRedirectTo:'https://wedadabutaleb-art.github.io/-SubControl/'}});if(error)return $('authMessage').textContent=err(error);$('authMessage').textContent=data.session?'تم إنشاء الحساب':'تم إنشاء الحساب. أكدي البريد ثم سجلي الدخول.'}
-async function loginUser(){const email=$('loginEmail').value.trim(),password=$('loginPassword').value;const{data,error}=await supabaseClient.auth.signInWithPassword({email,password});if(error)return $('authMessage').textContent=err(error);currentUser=data.user;await showApp()}
-async function logoutUser(){await supabaseClient.auth.signOut();location.reload()}
-async function forgotPassword(){const email=$('loginEmail').value.trim();if(!email)return toast('اكتبي البريد أولًا');const{error}=await supabaseClient.auth.resetPasswordForEmail(email,{redirectTo:'https://wedadabutaleb-art.github.io/-SubControl/'});toast(error?err(error):'تم إرسال رابط إعادة التعيين')}
-async function showApp(){$('authScreen').classList.add('hidden');$('mainApp').classList.remove('hidden');$('headerEmail').textContent=currentUser.email||'';$('profileEmail').textContent=currentUser.email||'—';await loadSubs();render()}
-async function init(){const{data:{session}}=await supabaseClient.auth.getSession();if(session?.user){currentUser=session.user;await showApp()}}
-supabaseClient.auth.onAuthStateChange(async(ev,s)=>{if(s?.user){currentUser=s.user;if($('mainApp').classList.contains('hidden'))await showApp()}});
+/* =========================
+   SUPABASE
+========================= */
 
-const nav=[['home','⌂','الرئيسية','Home'],['subs','▣','الاشتراكات','Subscriptions'],['pay','◈','السداد','Payments'],['analytics','◔','التحليلات','Analytics'],['profile','◉','الحساب','Account']];
-function buildNav(){$('bottomNav').innerHTML=nav.map(([id,ic,ar,en])=>`<button class="${current===id?'on':''}" onclick="go('${id}')"><strong>${ic}</strong>${lang==='ar'?ar:en}</button>`).join('')}
-function go(id){current=id;document.querySelectorAll('.screen').forEach(x=>x.classList.remove('on'));$(id).classList.add('on');buildNav()}
-function applyLang(){document.documentElement.dir=lang==='ar'?'rtl':'ltr';$('langBtn').textContent=lang==='ar'?'EN':'عربي';document.querySelectorAll('[data-ar]').forEach(el=>el.textContent=lang==='ar'?el.dataset.ar:el.dataset.en);buildNav()}
-function toggleLang(){lang=lang==='ar'?'en':'ar';localStorage.setItem('subcontrol_lang',lang);applyLang()}
-function providerKey(v){v=String(v||'').toLowerCase();if(v.includes('netflix'))return'netflix';if(v.includes('chatgpt')||v.includes('openai'))return'chatgpt';if(v.includes('spotify'))return'spotify';if(v.includes('canva'))return'canva';if(v.includes('adobe'))return'adobe';if(v.includes('apple')||v.includes('icloud'))return'apple';if(v.includes('microsoft'))return'microsoft365';if(v.includes('google'))return'googleone';return v}
-const providerUrls={netflix:'https://www.netflix.com/account',chatgpt:'https://chatgpt.com/',spotify:'https://www.spotify.com/account/subscription/',canva:'https://www.canva.com/settings/billing-and-plans',adobe:'https://account.adobe.com/plans',apple:'https://apps.apple.com/account/subscriptions',microsoft365:'https://account.microsoft.com/services/',googleone:'https://one.google.com/settings'};
-function icon(p){return({netflix:'🎬',chatgpt:'🤖',spotify:'🎵',canva:'🎨',adobe:'🅰️',apple:'☁️',microsoft365:'🪟',googleone:'☁️'})[providerKey(p)]||'⭐'}
-function parseNotes(v){try{return v?JSON.parse(v):{}}catch{return{}}}
-async function loadSubs(){const{data,error}=await supabaseClient.from('subscriptions').select('*').eq('user_id',currentUser.id).order('created_at',{ascending:true});if(error){alert('Supabase Error:\n\n'+err(error));return}subs=(data||[]).map(r=>{const n=parseNotes(r.notes);return{id:r.id,name:r.plan_name||r.provider_name,icon:icon(r.provider_name),price:Number(r.amount||0),cycle:r.billing_cycle||'monthly',date:r.next_renewal_date,status:r.status||'active',payment:n.payment||'',url:n.url||providerUrls[providerKey(r.provider_name)]||'',providerKey:providerKey(r.provider_name),externalSubscriptionId:r.provider_subscription_ref||'',userEmail:n.userEmail||currentUser.email||''}})}
-function monthly(x){return x.status==='cancelled'?0:(x.cycle==='yearly'?Number(x.price)/12:Number(x.price))}
-function money(v){return (Number(v)||0).toLocaleString('ar-SA',{minimumFractionDigits:2,maximumFractionDigits:2})+' ر.س'}
-function days(date){if(!date)return 999;const a=new Date();a.setHours(0,0,0,0);return Math.ceil((new Date(date+'T00:00:00')-a)/86400000)}
-function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
-function card(x,full=false){const d=days(x.date),renew=d<0?`متأخر ${Math.abs(d)} يوم`:d===0?'التجديد اليوم':`التجديد بعد ${d} يوم`;return `<div class="card"><div class="sub"><div class="ico">${x.icon}</div><div><div class="name">${esc(x.name)}</div><div class="meta">${x.cycle==='yearly'?'سنوي':'شهري'} • ${renew}</div><span class="tag ${x.status}">${x.status}</span></div><div class="price">${money(x.price)}</div></div>${full?`<div class="row-actions"><button class="ghost" onclick="openEdit('${x.id}')">تعديل</button><button class="ghost" onclick="togglePause('${x.id}')">${x.status==='paused'?'استئناف':'إيقاف'}</button><button class="danger" onclick="cancelSub('${x.id}')">إلغاء الاشتراك</button></div>`:''}</div>`}
-function render(){const active=subs.filter(x=>x.status==='active'),total=active.reduce((a,b)=>a+monthly(b),0);$('heroTotal').textContent=money(total);$('countPill').textContent=active.length+' اشتراك نشط';$('nearPill').textContent=active.filter(x=>days(x.date)>=0&&days(x.date)<=7).length+' تجديد قريب';$('homeList').innerHTML=active.length?active.map(x=>card(x)).join(''):'<div class="empty">لا توجد اشتراكات بعد.</div>';$('m1').textContent=money(total);$('m2').textContent=money(total*12);$('m3').textContent=active.length;$('m4').textContent=subs.length-active.length;$('aiText').textContent=active.length?`لديك ${active.length} اشتراكات نشطة بقيمة شهرية ${money(total)}.`:'أضيفي أول اشتراك لبدء التحليل.';renderSubs();renderPay()}
-function renderSubs(){const q=$('search').value.trim().toLowerCase(),list=subs.filter(x=>x.name.toLowerCase().includes(q));$('allList').innerHTML=list.length?list.map(x=>card(x,true)).join(''):'<div class="empty">لا توجد اشتراكات</div>'}
-function renderPay(){const list=subs.filter(x=>x.status==='active');$('payList').innerHTML=list.map(x=>`<label class="profile-row"><input type="checkbox" onchange="toggleSel('${x.id}',this.checked)"><span>${esc(x.name)}</span><b>${money(monthly(x))}</b></label>`).join('');const chosen=list.filter(x=>selected.has(x.id));$('payTotal').textContent=money(chosen.reduce((a,b)=>a+monthly(b),0));$('payCount').textContent=chosen.length+' محدد'}
-function openAdd(){$('editId').value='';['fName','fPrice','fDate','fPayment','fUrl','fExternalId'].forEach(id=>$(id).value='');$('fProvider').value='';$('fCycle').value='monthly';$('fStatus').value='active';$('fEmail').value=currentUser?.email||'';$('subModal').classList.add('on')}
-function openEdit(id){const x=subs.find(s=>s.id===id);if(!x)return;$('editId').value=x.id;$('fName').value=x.name;$('fPrice').value=x.price;$('fDate').value=x.date||'';$('fPayment').value=x.payment||'';$('fUrl').value=x.url||'';$('fProvider').value=x.providerKey||'';$('fExternalId').value=x.externalSubscriptionId||'';$('fEmail').value=x.userEmail||'';$('fCycle').value=x.cycle;$('fStatus').value=x.status;$('subModal').classList.add('on')}
-function closeModal(){$('subModal').classList.remove('on')}
-function providerChanged(){const k=$('fProvider').value;if(providerUrls[k]&&!$('fUrl').value)$('fUrl').value=providerUrls[k]}
-async function saveSub(){const name=$('fName').value.trim(),price=parseFloat($('fPrice').value),date=$('fDate').value;if(!name||!Number.isFinite(price)||!date)return toast('أكملي اسم الخدمة والسعر وتاريخ التجديد');const key=$('fProvider').value.trim(),providerName=({netflix:'Netflix',chatgpt:'ChatGPT',spotify:'Spotify',canva:'Canva',adobe:'Adobe',apple:'Apple',microsoft365:'Microsoft 365',googleone:'Google One'})[key]||name;const payload={user_id:currentUser.id,provider_name:providerName,plan_name:name,amount:price,currency:'SAR',billing_cycle:$('fCycle').value,next_renewal_date:date,status:$('fStatus').value,provider_subscription_ref:$('fExternalId').value.trim()||null,notes:JSON.stringify({payment:$('fPayment').value.trim(),url:$('fUrl').value.trim(),userEmail:$('fEmail').value.trim()})};const editId=$('editId').value.trim();const result=editId?await supabaseClient.from('subscriptions').update(payload).eq('id',editId).eq('user_id',currentUser.id).select():await supabaseClient.from('subscriptions').insert([payload]).select();if(result.error)return alert('Supabase Error:\n\n'+err(result.error));closeModal();await loadSubs();render();toast('تم الحفظ بنجاح')}
-async function togglePause(id){const x=subs.find(s=>s.id===id),status=x.status==='paused'?'active':'paused';const{error}=await supabaseClient.from('subscriptions').update({status}).eq('id',id).eq('user_id',currentUser.id);if(error)return alert('Supabase Error:\n\n'+err(error));await loadSubs();render()}
-async function cancelSub(id){const x=subs.find(s=>s.id===id);if(!x||!confirm(`هل تريدين بدء إلغاء اشتراك ${x.name}؟`))return;const status=x.url?'action_required':'pending_cancel';const{error}=await supabaseClient.from('subscriptions').update({status,cancellation_method:x.url?'provider_page':'manual'}).eq('id',id).eq('user_id',currentUser.id);if(error)return alert('Supabase Error:\n\n'+err(error));await loadSubs();render();if(x.url)window.open(x.url,'_blank','noopener')}
-function toggleSel(id,v){v?selected.add(id):selected.delete(id);renderPay()}
-function scanInbox(){toast('سيتم ربط Gmail / Outlook في المرحلة التالية.')}
-$('subModal').addEventListener('click',e=>{if(e.target===$('subModal'))closeModal()});
-applyLang();init();
+const SUPABASE_URL =
+'https://xptsdmsrxdczbgcaybxb.supabase.co';
+
+const SUPABASE_PUBLISHABLE_KEY =
+'sb_publishable_nRufSl9ODK6bT-qhiBm1PQ_ELckjnHf';
+
+
+const supabaseClient =
+window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY,
+  {
+    auth:{
+      persistSession:true,
+      autoRefreshToken:true,
+      detectSessionInUrl:true
+    }
+  }
+);
+
+
+/* =========================
+   DOM
+========================= */
+
+const $ =
+id =>
+document.getElementById(id);
+
+
+const authScreen =
+$('authScreen');
+
+const mainApp =
+$('mainApp');
+
+const authMessage =
+$('authMessage');
+
+const loginForm =
+$('loginForm');
+
+const signupForm =
+$('signupForm');
+
+const loginTab =
+$('loginTab');
+
+const signupTab =
+$('signupTab');
+
+const sideNav =
+$('sideNav');
+
+const bottomNav =
+$('bottomNav');
+
+const subModal =
+$('subModal');
+
+const search =
+$('search');
+
+
+let currentUser =
+null;
+
+
+/* =========================
+   ERRORS
+========================= */
+
+function errorText(error){
+
+  return [
+
+    error?.message,
+
+    error?.details,
+
+    error?.hint,
+
+    error?.code
+
+  ]
+  .filter(Boolean)
+  .join(' | ')
+  ||
+  String(
+    error ||
+    'Unknown error'
+  );
+}
+
+
+/* =========================
+   AUTH
+========================= */
+
+function showAuthMessage(
+  message,
+  type=''
+){
+
+  authMessage.textContent =
+  message;
+
+  authMessage.className =
+  'auth-msg ' +
+  type;
+}
+
+
+function showLogin(){
+
+  loginForm
+  .classList
+  .remove('hidden');
+
+  signupForm
+  .classList
+  .add('hidden');
+
+  loginTab
+  .classList
+  .add('on');
+
+  signupTab
+  .classList
+  .remove('on');
+
+  showAuthMessage('');
+}
+
+
+function showSignup(){
+
+  signupForm
+  .classList
+  .remove('hidden');
+
+  loginForm
+  .classList
+  .add('hidden');
+
+  signupTab
+  .classList
+  .add('on');
+
+  loginTab
+  .classList
+  .remove('on');
+
+  showAuthMessage('');
+}
+
+
+async function signupUser(){
+
+  const name =
+  $('signupName')
+  .value
+  .trim();
+
+
+  const email =
+  $('signupEmail')
+  .value
+  .trim();
+
+
+  const password =
+  $('signupPassword')
+  .value;
+
+
+  if(
+    !email ||
+    !password
+  ){
+
+    showAuthMessage(
+      'أدخلي البريد الإلكتروني وكلمة المرور.',
+      'error'
+    );
+
+    return;
+  }
+
+
+  if(
+    password.length < 8
+  ){
+
+    showAuthMessage(
+      'كلمة المرور يجب أن تكون 8 أحرف على الأقل.',
+      'error'
+    );
+
+    return;
+  }
+
+
+  showAuthMessage(
+    'جاري إنشاء الحساب...'
+  );
+
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+  .auth
+  .signUp({
+
+    email,
+
+    password,
+
+    options:{
+
+      data:{
+        full_name:name
+      },
+
+      emailRedirectTo:
+      'https://wedadabutaleb-art.github.io/-SubControl/'
+
+    }
+
+  });
+
+
+  if(error){
+
+    showAuthMessage(
+      errorText(error),
+      'error'
+    );
+
+    return;
+  }
+
+
+  if(data.session){
+
+    currentUser =
+    data.user;
+
+    await showApp();
+
+  }else{
+
+    showAuthMessage(
+      'تم إنشاء الحساب. افتحي رسالة التأكيد ثم سجلي الدخول.',
+      'ok'
+    );
+  }
+}
+
+
+async function loginUser(){
+
+  const email =
+  $('loginEmail')
+  .value
+  .trim();
+
+
+  const password =
+  $('loginPassword')
+  .value;
+
+
+  if(
+    !email ||
+    !password
+  ){
+
+    showAuthMessage(
+      'أدخلي البريد الإلكتروني وكلمة المرور.',
+      'error'
+    );
+
+    return;
+  }
+
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+  .auth
+  .signInWithPassword({
+
+    email,
+
+    password
+
+  });
+
+
+  if(error){
+
+    showAuthMessage(
+      errorText(error),
+      'error'
+    );
+
+    return;
+  }
+
+
+  currentUser =
+  data.user;
+
+
+  await showApp();
+}
+
+
+async function logoutUser(){
+
+  await supabaseClient
+  .auth
+  .signOut();
+
+
+  currentUser =
+  null;
+
+  subs =
+  [];
+
+  selected
+  .clear();
+
+
+  mainApp
+  .classList
+  .add('hidden');
+
+
+  authScreen
+  .classList
+  .remove('hidden');
+
+
+  showLogin();
+}
+
+
+async function forgotPassword(){
+
+  const email =
+  $('loginEmail')
+  .value
+  .trim();
+
+
+  if(!email){
+
+    showAuthMessage(
+      'اكتبي بريدك الإلكتروني أولًا.',
+      'error'
+    );
+
+    return;
+  }
+
+
+  const {
+    error
+  } =
+  await supabaseClient
+  .auth
+  .resetPasswordForEmail(
+    email,
+    {
+      redirectTo:
+      'https://wedadabutaleb-art.github.io/-SubControl/'
+    }
+  );
+
+
+  if(error){
+
+    showAuthMessage(
+      errorText(error),
+      'error'
+    );
+
+    return;
+  }
+
+
+  showAuthMessage(
+    'تم إرسال رابط إعادة تعيين كلمة المرور.',
+    'ok'
+  );
+}
+
+
+async function showApp(){
+
+  if(
+    !currentUser
+  )
+  return;
+
+
+  authScreen
+  .classList
+  .add('hidden');
+
+
+  mainApp
+  .classList
+  .remove('hidden');
+
+
+  $('headerEmail')
+  .textContent =
+  currentUser.email ||
+  '';
+
+
+  $('profileEmail')
+  .textContent =
+  currentUser.email ||
+  '—';
+
+
+  await loadSubscriptionsFromSupabase();
+
+
+  render();
+}
+
+
+async function initialiseAuth(){
+
+  const {
+    data:{
+      session
+    }
+  } =
+  await supabaseClient
+  .auth
+  .getSession();
+
+
+  if(
+    session?.user
+  ){
+
+    currentUser =
+    session.user;
+
+    await showApp();
+
+  }else{
+
+    authScreen
+    .classList
+    .remove('hidden');
+
+    mainApp
+    .classList
+    .add('hidden');
+  }
+}
+
+
+supabaseClient
+.auth
+.onAuthStateChange(
+  async(
+    event,
+    session
+  )=>{
+
+    if(
+      session?.user
+    ){
+
+      currentUser =
+      session.user;
+
+
+      if(
+        mainApp
+        .classList
+        .contains('hidden')
+      ){
+
+        await showApp();
+      }
+
+    }else if(
+      event ===
+      'SIGNED_OUT'
+    ){
+
+      currentUser =
+      null;
+
+      subs =
+      [];
+
+      mainApp
+      .classList
+      .add('hidden');
+
+      authScreen
+      .classList
+      .remove('hidden');
+    }
+  }
+);
+
+
+/* =========================
+   LANGUAGE
+========================= */
+
+let lang =
+localStorage.getItem(
+  'subcontrol_lang'
+)
+||
+'ar';
+
+
+function applyLang(){
+
+  document
+  .documentElement
+  .lang =
+  lang;
+
+
+  document
+  .documentElement
+  .dir =
+  lang === 'ar'
+  ?
+  'rtl'
+  :
+  'ltr';
+
+
+  $('langBtn')
+  .textContent =
+  lang === 'ar'
+  ?
+  'EN'
+  :
+  'عربي';
+
+
+  document
+  .querySelectorAll(
+    '[data-ar]'
+  )
+  .forEach(
+    el=>{
+
+      el.textContent =
+      lang === 'ar'
+      ?
+      el.dataset.ar
+      :
+      el.dataset.en;
+    }
+  );
+
+
+  search
+  .placeholder =
+  lang === 'ar'
+  ?
+  'ابحث عن اشتراك...'
+  :
+  'Search subscriptions...';
+
+
+  localStorage
+  .setItem(
+    'subcontrol_lang',
+    lang
+  );
+
+
+  buildNav();
+
+
+  if(currentUser){
+
+    render();
+  }
+}
+
+
+function toggleLang(){
+
+  lang =
+  lang === 'ar'
+  ?
+  'en'
+  :
+  'ar';
+
+
+  applyLang();
+}
+
+
+/* =========================
+   NAV
+========================= */
+
+const navItems = [
+
+  [
+    'home',
+    '⌂',
+    'الرئيسية',
+    'Home'
+  ],
+
+  [
+    'subs',
+    '▣',
+    'الاشتراكات',
+    'Subscriptions'
+  ],
+
+  [
+    'pay',
+    '◈',
+    'السداد',
+    'Payments'
+  ],
+
+  [
+    'analytics',
+    '◔',
+    'التحليلات',
+    'Analytics'
+  ],
+
+  [
+    'profile',
+    '◉',
+    'الحساب',
+    'Account'
+  ]
+
+];
+
+
+let current =
+'home';
+
+
+function buildNav(){
+
+  const html =
+  navItems
+  .map(
+    (
+      [
+        id,
+        icon,
+        ar,
+        en
+      ]
+    )=>
+    `
+    <button
+      class="${current===id?'on':''}"
+      onclick="go('${id}')">
+
+      <strong>
+      ${icon}
+      </strong>
+
+      <span>
+      ${
+        lang==='ar'
+        ?
+        ar
+        :
+        en
+      }
+      </span>
+
+    </button>
+    `
+  )
+  .join('');
+
+
+  bottomNav
+  .innerHTML =
+  html;
+
+
+  sideNav
+  .innerHTML =
+  html;
+}
+
+
+function go(id){
+
+  current =
+  id;
+
+
+  document
+  .querySelectorAll(
+    '.screen'
+  )
+  .forEach(
+    el=>
+    el
+    .classList
+    .remove('on')
+  );
+
+
+  $(id)
+  .classList
+  .add('on');
+
+
+  buildNav();
+
+
+  window
+  .scrollTo({
+    top:0,
+    behavior:'smooth'
+  });
+}
+
+
+/* =========================
+   SUBSCRIPTIONS
+========================= */
+
+let subs =
+[];
+
+let selected =
+new Set();
+
+let autoDetect =
+true;
+
+
+function plusDays(n){
+
+  const d =
+  new Date();
+
+
+  d.setDate(
+    d.getDate() +
+    n
+  );
+
+
+  return d
+  .toISOString()
+  .slice(
+    0,
+    10
+  );
+}
+
+
+function normalizeProvider(
+  value
+){
+
+  const v =
+  String(
+    value ||
+    ''
+  )
+  .trim()
+  .toLowerCase();
+
+
+  if(
+    v.includes('chatgpt') ||
+    v.includes('openai')
+  )
+  return 'chatgpt';
+
+
+  if(
+    v.includes('netflix')
+  )
+  return 'netflix';
+
+
+  if(
+    v.includes('spotify')
+  )
+  return 'spotify';
+
+
+  if(
+    v.includes('adobe')
+  )
+  return 'adobe';
+
+
+  if(
+    v.includes('canva')
+  )
+  return 'canva';
+
+
+  if(
+    v.includes('microsoft')
+  )
+  return 'microsoft365';
+
+
+  if(
+    v.includes('google')
+  )
+  return 'googleone';
+
+
+  if(
+    v.includes('apple') ||
+    v.includes('icloud')
+  )
+  return 'apple';
+
+
+  return v;
+}
+
+
+function providerDisplayName(
+  key,
+  name
+){
+
+  const map = {
+
+    chatgpt:
+    'ChatGPT',
+
+    netflix:
+    'Netflix',
+
+    spotify:
+    'Spotify',
+
+    adobe:
+    'Adobe',
+
+    canva:
+    'Canva',
+
+    microsoft365:
+    'Microsoft 365',
+
+    googleone:
+    'Google One',
+
+    apple:
+    'Apple'
+
+  };
+
+
+  return (
+    map[key] ||
+    name
+  );
+}
+
+
+function getProviderIcon(
+  provider
+){
+
+  const icons = {
+
+    chatgpt:
+    '🤖',
+
+    netflix:
+    '🎬',
+
+    spotify:
+    '🎵',
+
+    adobe:
+    '🅰️',
+
+    canva:
+    '🎨',
+
+    microsoft365:
+    '🪟',
+
+    googleone:
+    '☁️',
+
+    apple:
+    '☁️'
+
+  };
+
+
+  return (
+    icons[
+      normalizeProvider(
+        provider
+      )
+    ]
+    ||
+    '⭐'
+  );
+}
+
+
+const providerUrls = {
+
+  chatgpt:
+  'https://chatgpt.com/',
+
+  netflix:
+  'https://www.netflix.com/account',
+
+  adobe:
+  'https://account.adobe.com/plans',
+
+  canva:
+  'https://www.canva.com/settings/billing-and-plans',
+
+  spotify:
+  'https://www.spotify.com/account/subscription/',
+
+  microsoft365:
+  'https://account.microsoft.com/services/',
+
+  googleone:
+  'https://one.google.com/settings',
+
+  apple:
+  'https://apps.apple.com/account/subscriptions'
+
+};
+
+
+function getProviderUrl(
+  provider
+){
+
+  return (
+    providerUrls[
+      normalizeProvider(
+        provider
+      )
+    ]
+    ||
+    ''
+  );
+}
+
+
+function parseNotes(
+  value
+){
+
+  if(!value){
+
+    return {};
+  }
+
+
+  try{
+
+    const parsed =
+    JSON.parse(
+      value
+    );
+
+
+    if(
+      parsed &&
+      typeof parsed ===
+      'object'
+    ){
+
+      return parsed;
+    }
+
+  }catch(e){}
+
+
+  return {};
+}
+
+
+async function loadSubscriptionsFromSupabase(){
+
+  if(
+    !currentUser
+  ){
+
+    subs =
+    [];
+
+    return;
+  }
+
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+  .from(
+    'subscriptions'
+  )
+  .select('*')
+  .eq(
+    'user_id',
+    currentUser.id
+  )
+  .order(
+    'created_at',
+    {
+      ascending:true
+    }
+  );
+
+
+  if(error){
+
+    alert(
+      'Supabase Error:\\n\\n' +
+      errorText(error)
+    );
+
+    return;
+  }
+
+
+  subs =
+  (
+    data ||
+    []
+  )
+  .map(
+    row=>{
+
+      const extra =
+      parseNotes(
+        row.notes
+      );
+
+
+      return {
+
+        id:
+        row.id,
+
+        name:
+        row.plan_name ||
+        row.provider_name ||
+        'Subscription',
+
+        icon:
+        getProviderIcon(
+          row.provider_name
+        ),
+
+        price:
+        Number(
+          row.amount ||
+          0
+        ),
+
+        cycle:
+        row.billing_cycle ===
+        'yearly'
+        ?
+        'yearly'
+        :
+        'monthly',
+
+        date:
+        row.next_renewal_date ||
+        plusDays(30),
+
+        status:
+        row.status ||
+        'active',
+
+        payment:
+        extra.payment ||
+        '',
+
+        url:
+        extra.url ||
+        getProviderUrl(
+          row.provider_name
+        ),
+
+        providerKey:
+        normalizeProvider(
+          row.provider_name
+        ),
+
+        externalSubscriptionId:
+        row.provider_subscription_ref ||
+        '',
+
+        userEmail:
+        extra.userEmail ||
+        currentUser.email ||
+        ''
+
+      };
+
+    }
+  );
+
+
+  selected =
+  new Set(
+    [
+      ...selected
+    ]
+    .filter(
+      id=>
+      subs.some(
+        s=>
+        s.id ===
+        id
+      )
+    )
+  );
+}
+
+
+/* =========================
+   UTILS
+========================= */
+
+function monthly(x){
+
+  if(
+    x.status ===
+    'cancelled'
+  ){
+
+    return 0;
+  }
+
+
+  return (
+    x.cycle ===
+    'monthly'
+    ?
+    Number(
+      x.price
+    )
+    :
+    Number(
+      x.price
+    ) / 12
+  );
+}
+
+
+function money(value){
+
+  const v =
+  Number(
+    value
+  )
+  ||
+  0;
+
+
+  if(
+    lang ===
+    'ar'
+  ){
+
+    return (
+      v.toLocaleString(
+        'ar-SA',
+        {
+          minimumFractionDigits:2,
+          maximumFractionDigits:2
+        }
+      )
+      +
+      ' ر.س'
+    );
+  }
+
+
+  return (
+    'SAR ' +
+    v.toLocaleString(
+      'en-US',
+      {
+        minimumFractionDigits:2,
+        maximumFractionDigits:2
+      }
+    )
+  );
+}
+
+
+function daysLeft(
+  date
+){
+
+  if(!date){
+
+    return 999;
+  }
+
+
+  const today =
+  new Date();
+
+
+  today
+  .setHours(
+    0,
+    0,
+    0,
+    0
+  );
+
+
+  const target =
+  new Date(
+    date +
+    'T00:00:00'
+  );
+
+
+  return Math.ceil(
+    (
+      target -
+      today
+    )
+    /
+    86400000
+  );
+}
+
+
+function esc(value){
+
+  return String(
+    value
+  )
+  .replace(
+    /[&<>"']/g,
+    c=>({
+      '&':'&amp;',
+      '<':'&lt;',
+      '>':'&gt;',
+      '"':'&quot;',
+      "'":'&#039;'
+    }[c])
+  );
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+function statusText(status){
+
+  const ar = {
+
+    active:
+    'نشط',
+
+    paused:
+    'موقوف',
+
+    cancelled:
+    'تم الإلغاء',
+
+    pending_cancel:
+    'قيد الإلغاء',
+
+    action_required:
+    'بانتظار إكمال الإلغاء'
+
+  };
+
+
+  const en = {
+
+    active:
+    'Active',
+
+    paused:
+    'Paused',
+
+    cancelled:
+    'Cancelled',
+
+    pending_cancel:
+    'Cancellation pending',
+
+    action_required:
+    'Complete cancellation'
+
+  };
+
+
+  return (
+    lang ===
+    'ar'
+    ?
+    ar[status]
+    :
+    en[status]
+  )
+  ||
+  status;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+function card(
+  x,
+  full=false
+){
+
+  const d =
+  daysLeft(
+    x.date
+  );
+
+
+  let renewalText =
+  '';
+
+
+  if(
+    lang ===
+    'ar'
+  ){
+
+    if(
+      d < 0
+    ){
+
+      renewalText =
+      `متأخر ${Math.abs(d)} يوم`;
+
+    }else if(
+      d === 0
+    ){
+
+      renewalText =
+      'التجديد اليوم';
+
+    }else{
+
+      renewalText =
+      `التجديد بعد ${d} يوم`;
+    }
+
+  }else{
+
+    if(
+      d < 0
+    ){
+
+      renewalText =
+      `Overdue ${Math.abs(d)} days`;
+
+    }else if(
+      d === 0
+    ){
+
+      renewalText =
+      'Renews today';
+
+    }else{
+
+      renewalText =
+      `Renews in ${d} days`;
+    }
+  }
+
+
+  let cancelButton =
+  '';
+
+
+  if(
+    x.status ===
+    'action_required'
+  ){
+
+    cancelButton =
+    `
+    <button
+      class="primary"
+      onclick="continueCancellation('${x.id}')">
+
+      ${
+        lang === 'ar'
+        ?
+        'متابعة الإلغاء لدى المزود'
+        :
+        'Continue with provider'
+      }
+
+    </button>
+    `;
+
+  }else if(
+    x.status ===
+    'cancelled'
+  ){
+
+    cancelButton =
+    '';
+
+  }else{
+
+    cancelButton =
+    `
+    <button
+      class="danger"
+      onclick="cancelSub('${x.id}')">
+
+      ${
+        lang === 'ar'
+        ?
+        'إلغاء الاشتراك'
+        :
+        'Cancel subscription'
+      }
+
+    </button>
+    `;
+  }
+
+
+  return `
+  <div class="card">
+
+    <div class="sub">
+
+      <div class="ico">
+      ${x.icon || '⭐'}
+      </div>
+
+      <div>
+
+        <div class="name">
+        ${esc(x.name)}
+        </div>
+
+        <div class="meta">
+
+          ${
+            x.cycle ===
+            'monthly'
+            ?
+            (
+              lang === 'ar'
+              ?
+              'شهري'
+              :
+              'Monthly'
+            )
+            :
+            (
+              lang === 'ar'
+              ?
+              'سنوي'
+              :
+              'Annual'
+            )
+          }
+
+          •
+
+          ${renewalText}
+
+        </div>
+
+        <span
+          class="tag ${x.status}">
+
+          ${statusText(x.status)}
+
+        </span>
+
+      </div>
+
+      <div class="price">
+
+        ${money(x.price)}
+
+      </div>
+
+    </div>
+
+
+    ${
+      full
+      ?
+      `
+      <div class="row-actions">
+
+        <button
+          class="ghost"
+          onclick="openEdit('${x.id}')">
+
+          ${
+            lang === 'ar'
+            ?
+            'تعديل'
+            :
+            'Edit'
+          }
+
+        </button>
+
+
+        ${
+          x.status !==
+          'cancelled'
+          ?
+          `
+          <button
+            class="ghost"
+            onclick="togglePause('${x.id}')">
+
+            ${
+              x.status ===
+              'paused'
+              ?
+              (
+                lang === 'ar'
+                ?
+                'استئناف'
+                :
+                'Resume'
+              )
+              :
+              (
+                lang === 'ar'
+                ?
+                'إيقاف'
+                :
+                'Pause'
+              )
+            }
+
+          </button>
+          `
+          :
+          ''
+        }
+
+
+        ${cancelButton}
+
+      </div>
+      `
+      :
+      ''
+    }
+
+  </div>
+  `;
+}
+
+
+/* =========================
+   RENDER
+========================= */
+
+function render(){
+
+  if(
+    !currentUser
+  )
+  return;
+
+
+  const active =
+  subs.filter(
+    x=>
+    x.status ===
+    'active'
+  );
+
+
+  const total =
+  active.reduce(
+    (
+      sum,
+      x
+    )=>
+    sum +
+    monthly(x),
+    0
+  );
+
+
+  $('heroTotal')
+  .textContent =
+  money(total);
+
+
+  $('countPill')
+  .textContent =
+  active.length +
+  (
+    lang ===
+    'ar'
+    ?
+    ' اشتراك نشط'
+    :
+    ' active subscriptions'
+  );
+
+
+  const near =
+  active.filter(
+    x=>{
+
+      const d =
+      daysLeft(
+        x.date
+      );
+
+
+      return (
+        d >= 0 &&
+        d <= 7
+      );
+    }
+  )
+  .length;
+
+
+  $('nearPill')
+  .textContent =
+  near +
+  (
+    lang ===
+    'ar'
+    ?
+    ' تجديد قريب'
+    :
+    ' near renewals'
+  );
+
+
+  const upcoming =
+  [
+    ...active
+  ]
+  .sort(
+    (
+      a,
+      b
+    )=>
+    new Date(
+      a.date
+    )
+    -
+    new Date(
+      b.date
+    )
+  )
+  .slice(
+    0,
+    4
+  );
+
+
+  $('homeList')
+  .innerHTML =
+  upcoming.length
+  ?
+  upcoming
+  .map(
+    x=>
+    card(x)
+  )
+  .join('')
+  :
+  `
+  <div class="empty">
+  ${
+    lang === 'ar'
+    ?
+    'لا توجد اشتراكات نشطة.'
+    :
+    'No active subscriptions.'
+  }
+  </div>
+  `;
+
+
+  $('m1')
+  .textContent =
+  money(total);
+
+
+  $('m2')
+  .textContent =
+  money(
+    total *
+    12
+  );
+
+
+  $('m3')
+  .textContent =
+  active.length;
+
+
+  $('m4')
+  .textContent =
+  subs.length -
+  active.length;
+
+
+  $('aiText')
+  .textContent =
+  active.length
+  ?
+  (
+    lang === 'ar'
+    ?
+    `لديك ${active.length} اشتراكات نشطة بقيمة شهرية تقديرية ${money(total)}.`
+    :
+    `You have ${active.length} active subscriptions with estimated monthly spending of ${money(total)}.`
+  )
+  :
+  (
+    lang === 'ar'
+    ?
+    'لا توجد اشتراكات نشطة حاليًا.'
+    :
+    'No active subscriptions currently.'
+  );
+
+
+  $('detectText')
+  .textContent =
+  autoDetect
+  ?
+  (
+    lang === 'ar'
+    ?
+    'مفعل — ربط البريد هو الخطوة التالية'
+    :
+    'Enabled — email connection is the next step'
+  )
+  :
+  (
+    lang === 'ar'
+    ?
+    'متوقف مؤقتًا'
+    :
+    'Temporarily paused'
+  );
+
+
+  renderSubs();
+
+  renderPay();
+}
+
+
+function renderSubs(){
+
+  const q =
+  (
+    search.value ||
+    ''
+  )
+  .trim()
+  .toLowerCase();
+
+
+  const list =
+  subs.filter(
+    x=>
+    x.name
+    .toLowerCase()
+    .includes(q)
+  );
+
+
+  $('allList')
+  .innerHTML =
+  list.length
+  ?
+  list
+  .map(
+    x=>
+    card(
+      x,
+      true
+    )
+  )
+  .join('')
+  :
+  `
+  <div class="empty">
+
+    ${
+      lang === 'ar'
+      ?
+      'لا توجد اشتراكات'
+      :
+      'No subscriptions'
+    }
+
+  </div>
+  `;
+}
+
+
+function renderPay(){
+
+  const list =
+  subs.filter(
+    x=>
+    x.status ===
+    'active'
+  );
+
+
+  $('payList')
+  .innerHTML =
+  list.length
+  ?
+  list
+  .map(
+    x=>
+    `
+    <label class="profile-row">
+
+      <input
+        type="checkbox"
+        ${
+          selected.has(
+            x.id
+          )
+          ?
+          'checked'
+          :
+          ''
+        }
+        onchange="toggleSel('${x.id}',this.checked)">
+
+      <span style="flex:1">
+
+        <b>
+        ${esc(x.name)}
+        </b>
+
+        <div class="meta">
+        ${x.payment || '—'}
+        </div>
+
+      </span>
+
+      <b>
+      ${money(monthly(x))}
+      </b>
+
+    </label>
+    `
+  )
+  .join('')
+  :
+  `
+  <div class="empty">
+
+  ${
+    lang === 'ar'
+    ?
+    'لا توجد اشتراكات نشطة'
+    :
+    'No active subscriptions'
+  }
+
+  </div>
+  `;
+
+
+  const chosen =
+  list.filter(
+    x=>
+    selected.has(
+      x.id
+    )
+  );
+
+
+  const total =
+  chosen.reduce(
+    (
+      sum,
+      x
+    )=>
+    sum +
+    monthly(x),
+    0
+  );
+
+
+  $('payTotal')
+  .textContent =
+  money(total);
+
+
+  $('payCount')
+  .textContent =
+  chosen.length +
+  (
+    lang === 'ar'
+    ?
+    ' محدد'
+    :
+    ' selected'
+  );
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+function providerChanged(){
+
+  const key =
+  $('fProvider')
+  .value;
+
+
+  if(
+    providerUrls[key] &&
+    !$('fUrl')
+    .value
+    .trim()
+  ){
+
+    $('fUrl')
+    .value =
+    providerUrls[key];
+  }
+}
+
+
+function openAdd(){
+
+  $('modalTitle')
+  .textContent =
+  lang === 'ar'
+  ?
+  'إضافة اشتراك'
+  :
+  'Add subscription';
+
+
+  $('editId')
+  .value =
+  '';
+
+
+  [
+    'fName',
+    'fPrice',
+    'fDate',
+    'fPayment',
+    'fUrl',
+    'fExternalId'
+  ]
+  .forEach(
+    id=>
+    $(id)
+    .value =
+    ''
+  );
+
+
+  $('fProvider')
+  .value =
+  '';
+
+
+  $('fEmail')
+  .value =
+  currentUser?.email ||
+  '';
+
+
+  $('fCycle')
+  .value =
+  'monthly';
+
+
+  $('fStatus')
+  .value =
+  'active';
+
+
+  subModal
+  .classList
+  .add('on');
+}
+
+
+function openEdit(id){
+
+  const x =
+  subs.find(
+    s=>
+    s.id ===
+    id
+  );
+
+
+  if(!x)
+  return;
+
+
+  $('modalTitle')
+  .textContent =
+  lang === 'ar'
+  ?
+  'تعديل الاشتراك'
+  :
+  'Edit subscription';
+
+
+  $('editId')
+  .value =
+  x.id;
+
+
+  $('fName')
+  .value =
+  x.name;
+
+
+  $('fPrice')
+  .value =
+  x.price;
+
+
+  $('fDate')
+  .value =
+  x.date ||
+  '';
+
+
+  $('fPayment')
+  .value =
+  x.payment ||
+  '';
+
+
+  $('fUrl')
+  .value =
+  x.url ||
+  '';
+
+
+  $('fProvider')
+  .value =
+  x.providerKey ||
+  '';
+
+
+  $('fExternalId')
+  .value =
+  x.externalSubscriptionId ||
+  '';
+
+
+  $('fEmail')
+  .value =
+  x.userEmail ||
+  currentUser?.email ||
+  '';
+
+
+  $('fCycle')
+  .value =
+  x.cycle;
+
+
+  $('fStatus')
+  .value =
+  x.status;
+
+
+  subModal
+  .classList
+  .add('on');
+}
+
+
+function closeModal(){
+
+  subModal
+  .classList
+  .remove('on');
+}
+
+
+/* =========================
+   SAVE
+========================= */
+
+async function saveSub(){
+
+  if(
+    !currentUser
+  ){
+
+    toast(
+      'يجب تسجيل الدخول أولًا'
+    );
+
+    return;
+  }
+
+
+  const name =
+  $('fName')
+  .value
+  .trim();
+
+
+  const price =
+  parseFloat(
+    $('fPrice')
+    .value
+  );
+
+
+  const date =
+  $('fDate')
+  .value;
+
+
+  if(
+    !name ||
+    !Number.isFinite(
+      price
+    ) ||
+    price < 0 ||
+    !date
+  ){
+
+    toast(
+      'أكملي اسم الخدمة والسعر وتاريخ التجديد'
+    );
+
+    return;
+  }
+
+
+  const editId =
+  $('editId')
+  .value
+  .trim();
+
+
+  const providerKey =
+  $('fProvider')
+  .value
+  .trim();
+
+
+  const providerName =
+  providerDisplayName(
+    providerKey,
+    name
+  );
+
+
+  const payload = {
+
+    user_id:
+    currentUser.id,
+
+    provider_name:
+    providerName,
+
+    plan_name:
+    name,
+
+    amount:
+    price,
+
+    currency:
+    'SAR',
+
+    billing_cycle:
+    $('fCycle')
+    .value,
+
+    next_renewal_date:
+    date,
+
+    status:
+    $('fStatus')
+    .value,
+
+    provider_subscription_ref:
+    $('fExternalId')
+    .value
+    .trim()
+    ||
+    null,
+
+    notes:
+    JSON.stringify({
+
+      payment:
+      $('fPayment')
+      .value
+      .trim(),
+
+      url:
+      $('fUrl')
+      .value
+      .trim(),
+
+      userEmail:
+      $('fEmail')
+      .value
+      .trim()
+
+    })
+
+  };
+
+
+  let result;
+
+
+  if(editId){
+
+    result =
+    await supabaseClient
+    .from(
+      'subscriptions'
+    )
+    .update(
+      payload
+    )
+    .eq(
+      'id',
+      editId
+    )
+    .eq(
+      'user_id',
+      currentUser.id
+    )
+    .select();
+
+  }else{
+
+    result =
+    await supabaseClient
+    .from(
+      'subscriptions'
+    )
+    .insert([
+      payload
+    ])
+    .select();
+  }
+
+
+  if(
+    result.error
+  ){
+
+    alert(
+      'Supabase Error:\\n\\n' +
+      errorText(
+        result.error
+      )
+    );
+
+    return;
+  }
+
+
+  closeModal();
+
+
+  await loadSubscriptionsFromSupabase();
+
+
+  render();
+
+
+  toast(
+    editId
+    ?
+    'تم تحديث الاشتراك بنجاح'
+    :
+    'تم الحفظ بنجاح'
+  );
+}
+
+
+/* =========================
+   PAUSE / RESUME
+========================= */
+
+async function togglePause(id){
+
+  const x =
+  subs.find(
+    s=>
+    s.id ===
+    id
+  );
+
+
+  if(!x)
+  return;
+
+
+  const newStatus =
+  x.status ===
+  'paused'
+  ?
+  'active'
+  :
+  'paused';
+
+
+  const {
+    error
+  } =
+  await supabaseClient
+  .from(
+    'subscriptions'
+  )
+  .update({
+
+    status:
+    newStatus
+
+  })
+  .eq(
+    'id',
+    id
+  )
+  .eq(
+    'user_id',
+    currentUser.id
+  );
+
+
+  if(error){
+
+    alert(
+      'Supabase Error:\\n\\n' +
+      errorText(error)
+    );
+
+    return;
+  }
+
+
+  await loadSubscriptionsFromSupabase();
+
+
+  render();
+
+
+  toast(
+    'تم تحديث حالة الاشتراك'
+  );
+}
+
+
+/* =========================
+   CANCELLATION
+========================= */
+
+async function cancelSub(id){
+
+  const x =
+  subs.find(
+    s=>
+    s.id ===
+    id
+  );
+
+
+  if(!x)
+  return;
+
+
+  const confirmed =
+  confirm(
+    lang === 'ar'
+    ?
+    `هل تريدين بدء إلغاء اشتراك ${x.name}؟`
+    :
+    `Start cancellation for ${x.name}?`
+  );
+
+
+  if(
+    !confirmed
+  )
+  return;
+
+
+  const newStatus =
+  x.url
+  ?
+  'action_required'
+  :
+  'pending_cancel';
+
+
+  const cancellationMethod =
+  x.url
+  ?
+  'provider_page'
+  :
+  'manual';
+
+
+  const {
+    error
+  } =
+  await supabaseClient
+  .from(
+    'subscriptions'
+  )
+  .update({
+
+    status:
+    newStatus,
+
+    cancellation_method:
+    cancellationMethod
+
+  })
+  .eq(
+    'id',
+    id
+  )
+  .eq(
+    'user_id',
+    currentUser.id
+  );
+
+
+  if(error){
+
+    alert(
+      'Supabase Error:\\n\\n' +
+      errorText(error)
+    );
+
+    return;
+  }
+
+
+  await loadSubscriptionsFromSupabase();
+
+
+  render();
+
+
+  if(
+    x.url
+  ){
+
+    toast(
+      lang === 'ar'
+      ?
+      'جاري فتح صفحة المزود الرسمية...'
+      :
+      'Opening provider page...'
+    );
+
+
+    setTimeout(
+      ()=>{
+
+        window.location.href =
+        x.url;
+
+      },
+      350
+    );
+
+  }else{
+
+    toast(
+      lang === 'ar'
+      ?
+      'تم وضع الاشتراك قيد الإلغاء.'
+      :
+      'Cancellation pending.'
+    );
+  }
+}
+
+
+/* =========================
+   CONTINUE CANCELLATION
+========================= */
+
+function continueCancellation(id){
+
+  const x =
+  subs.find(
+    s=>
+    s.id ===
+    id
+  );
+
+
+  if(
+    !x
+  )
+  return;
+
+
+  const url =
+  x.url ||
+  getProviderUrl(
+    x.providerKey
+  );
+
+
+  if(!url){
+
+    toast(
+      lang === 'ar'
+      ?
+      'لا يوجد رابط إدارة لهذا الاشتراك.'
+      :
+      'No provider management link available.'
+    );
+
+    return;
+  }
+
+
+  window.location.href =
+  url;
+}
+
+
+/* =========================
+   PAYMENT
+========================= */
+
+function toggleSel(
+  id,
+  value
+){
+
+  if(value){
+
+    selected
+    .add(id);
+
+  }else{
+
+    selected
+    .delete(id);
+  }
+
+
+  renderPay();
+}
+
+
+function simulate(
+  method
+){
+
+  if(
+    !selected.size
+  ){
+
+    toast(
+      'اختاري اشتراكًا واحدًا على الأقل'
+    );
+
+    return;
+  }
+
+
+  toast(
+    `${method} — سيتم ربط السداد الحقيقي لاحقًا`
+  );
+}
+
+
+/* =========================
+   MAIL
+========================= */
+
+function toggleAuto(){
+
+  autoDetect =
+  !autoDetect;
+
+
+  $('autoSwitch')
+  .classList
+  .toggle(
+    'on',
+    autoDetect
+  );
+
+
+  render();
+}
+
+
+function connectMail(
+  provider
+){
+
+  toast(
+    `سيتم ربط ${provider} عبر OAuth في المرحلة التالية.`
+  );
+}
+
+
+function scanInbox(){
+
+  toast(
+    'سيتم تفعيل فحص البريد بعد ربط Gmail وOutlook.'
+  );
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+function toast(message){
+
+  const el =
+  $('toast');
+
+
+  el.textContent =
+  message;
+
+
+  el
+  .classList
+  .add('on');
+
+
+  clearTimeout(
+    window.toastTimer
+  );
+
+
+  window.toastTimer =
+  setTimeout(
+    ()=>{
+
+      el
+      .classList
+      .remove('on');
+
+    },
+    4000
+  );
+}
+
+
+/* =========================
+   MODAL BACKDROP
+========================= */
+
+subModal
+.addEventListener(
+  'click',
+  event=>{
+
+    if(
+      event.target ===
+      subModal
+    ){
+
+      closeModal();
+    }
+  }
+);
+
+
+/* =========================
+   START
+========================= */
+
+applyLang();
+
+initialiseAuth();
+
 </script>
+
 </body>
 </html>
